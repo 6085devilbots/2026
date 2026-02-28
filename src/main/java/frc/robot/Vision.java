@@ -184,6 +184,20 @@ import org.photonvision.simulation.PhotonCameraSim;
      }
 
    
+       public class ProjectileTrajectory {
+       public static void main(String[] args) {
+        double v0 = 7.4676; // Initial velocity (m/s)
+        double angleDeg; // Launch angle (degrees)
+        double g = 9.81; // Gravity (m/s^2)
+        double distance = Robot.distanceToTarget; //x
+        double roboHeight = 0.399415;   //y = 15.725in
+        double hubHeight = 1.8288; //72 in
+
+        // Calculate y for various x positions
+        Math.atan();
+         }
+       }
+
 
 
      /**
