@@ -194,7 +194,7 @@ import org.photonvision.simulation.PhotonCameraSim;
         double hubHeight = 1.8288; //72 in
 
         // Calculate y for various x positions
-        Math.atan();
+        Math.atan()
          
        }
 
