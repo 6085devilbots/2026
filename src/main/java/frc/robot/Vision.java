@@ -195,7 +195,7 @@ import org.photonvision.simulation.PhotonCameraSim;
 
         // Calculate y for various x positions
         Math.atan();
-         }
+         
        }
 
 
