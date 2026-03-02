@@ -129,7 +129,8 @@ public class Robot extends TimedRobot {
 
   public static double lift_Position; 
 
-   public static double rotCmmd;
+  public static double rotCmmd;
+  public static double distanceToTarget;
 
 // - - - - - - - - Basic Robot Declarations - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -622,16 +623,16 @@ if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {
   var currentPos = DriveSubsystem.getPose2();
   var currentRot =  DriveSubsystem.canandgyro.getRotation2d();
   var kP = 0.005; //P gain must be tuned
-  double error;
+  double rotError;
+  
  
 
     double distanceToTarget = PhotonUtils.getDistanceToPose(currentPos, DriveSubsystem.blueHub);
     Rotation2d targetYaw = PhotonUtils.getYawToPose(currentPos,DriveSubsystem.blueHub);
 
-    error = targetYaw.minus(currentRot).getDegrees();
-    rotCmmd = error * kP ;
-   
-
+    rotError = targetYaw.minus(currentRot).getDegrees();
+    rotCmmd = rotError * kP ;
+     
 
 
 }else{

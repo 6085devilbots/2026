@@ -120,7 +120,7 @@ public final class Constants {
 
 
 // - - - - - - - - - - - - - - - - Lift Positions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    public static final double tarIncreaseAng_Pos = -30;  
+    public static final double tarIncreaseAng_Pos = -0.3;  
     public static final double tarDecreaseAng_Pos = 0;         
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 

@@ -376,20 +376,20 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public static void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
     // Convert the commanded speeds into the correct units for the drivetrain0
-    double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond; // changed from negative to positive
-    double ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond; // changed from negative to positive
+
+    double rot2;     // Creates second rotation variable to lock out drive code from resetting rot and not using rotCmmd
 
     if(Robot.rotOverRide){
+      rot2 = Robot.rotCmmd;  // If rot overide is true then rotation is told to be our rotation needed to point at the hub
 
-      double rotDelivered = Robot.rotCmmd * DriveConstants.kMaxAngularSpeed;     
+    }else{
+      rot2 = rot;  // Says if rotation Override isn't true then rot2 should be the same as the roation variable originally was so robot drive as usual 
 
-     }else{
+    }
 
-       double rotDelivered = rot * DriveConstants.kMaxAngularSpeed;   
-
-     }
-
-                // changed from negative to positive
+    double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond; // changed from negative to positive
+    double ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond; // changed from negative to positive
+    double rotDelivered = rot2 * DriveConstants.kMaxAngularSpeed;               // changed from negative to positive
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative
