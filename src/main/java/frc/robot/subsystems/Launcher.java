@@ -117,7 +117,6 @@ public Launcher(){
     }
     
 
-
      public static double targetPosition(){
         
         return m_targetEncoder.getPosition();
