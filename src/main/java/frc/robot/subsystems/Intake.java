@@ -26,11 +26,7 @@ public class Intake{
     private static RelativeEncoder m_intakeEncoder;
     public static SparkClosedLoopController m_intakeClosedLoopController;
 
-    
-    public static SparkMax m_targetSpark;
-    public static RelativeEncoder m_targetEncoder;
-    public static SparkClosedLoopController m_targetClosedLoopController;
-    
+  
 
 
 

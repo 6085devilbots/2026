@@ -28,6 +28,11 @@ public class Launcher {
     public static RelativeEncoder m_launcherEncoder13;
     public static SparkClosedLoopController m_launcherClosedLoopController13;
 
+      
+    public static SparkMax m_targetSpark;
+    public static RelativeEncoder m_targetEncoder;
+    public static SparkClosedLoopController m_targetClosedLoopController;
+    
 
 
 public Launcher(){
