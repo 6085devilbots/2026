@@ -311,7 +311,7 @@ public static double alliTest = 0;
     SmartDashboard.putNumber("RR Encoder", DriveSubsystem.m_rearRight.readEncoders());
 
     SmartDashboard.putNumber("Intake Lift Position", Intake.intakeLiftPosition());
-    SmartDashboard.putNumber("Target Position", Intake.targetPosition());
+    SmartDashboard.putNumber("Target Position", Launcher.targetPosition());
 
     SmartDashboard.putNumber("LeftLaunch Current", Launcher.m_launcherSpark13.getOutputCurrent());
     SmartDashboard.putNumber("RightLaunch Current", Launcher.m_launcherSpark12.getOutputCurrent());
@@ -440,7 +440,7 @@ public static double alliTest = 0;
     SmartDashboard.putNumber("RR Encoder", DriveSubsystem.m_rearRight.readEncoders());
 
     SmartDashboard.putNumber("Intake Lift Position", Intake.intakeLiftPosition());
-    SmartDashboard.putNumber("Target Position", Intake.targetPosition());
+    SmartDashboard.putNumber("Target Position", Launcher.targetPosition());
    
     SmartDashboard.putNumber("Drive Speed", DriveConstants.kMaxSpeedMetersPerSecond);
 
@@ -602,7 +602,7 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 
 
  if(stick2.getRawButton(Wire.aButton)) {
-    Intake.TargetIncrease();
+    Launcher.TargetIncrease();
     
   }
 
@@ -610,7 +610,7 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 
 
  if(stick2.getRawButton(Wire.bButton)) {
-    Intake.TargetDecrease();
+    Launcher.TargetDecrease();
     
   }
 
