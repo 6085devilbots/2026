@@ -19,6 +19,7 @@ import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.subsystems.OLDPoseEstimatorSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Launcher;
 
 import java.security.KeyPair;
 import java.util.List;
@@ -312,8 +313,8 @@ public static double alliTest = 0;
     SmartDashboard.putNumber("Intake Lift Position", Intake.intakeLiftPosition());
     SmartDashboard.putNumber("Target Position", Intake.targetPosition());
 
-    SmartDashboard.putNumber("LeftLaunch Current", Intake.m_launcherSpark13.getOutputCurrent());
-    SmartDashboard.putNumber("RightLaunch Current", Intake.m_launcherSpark12.getOutputCurrent());
+    SmartDashboard.putNumber("LeftLaunch Current", Launcher.m_launcherSpark13.getOutputCurrent());
+    SmartDashboard.putNumber("RightLaunch Current", Launcher.m_launcherSpark12.getOutputCurrent());
 
     SmartDashboard.putBoolean("Full Auton", fullAuton);
 
@@ -448,8 +449,8 @@ public static double alliTest = 0;
 
     SmartDashboard.putNumber("ArmLift Current", Intake.m_intakeLiftSpark.getOutputCurrent());
 
-    SmartDashboard.putNumber("LeftLaunch Current", Intake.m_launcherSpark13.getOutputCurrent());
-    SmartDashboard.putNumber("RightLaunch Current", Intake.m_launcherSpark12.getOutputCurrent());
+    SmartDashboard.putNumber("LeftLaunch Current", Launcher.m_launcherSpark13.getOutputCurrent());
+    SmartDashboard.putNumber("RightLaunch Current", Launcher.m_launcherSpark12.getOutputCurrent());
 
     //SmartDashboard.putNumber("Lift Current", Intake.m_ClimberSpark.getOutputCurrent());
     //SmartDashboard.putNumber("Climb Pos", Intake.ClimbPosition());
@@ -460,8 +461,8 @@ public static double alliTest = 0;
     //SmartDashboard.putNumber("rightXstick1", stick1.getRawAxis(Wire.rightStickX));
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    SmartDashboard.putNumber("Left Motor Speed", Intake.m_launcherEncoder13.getVelocity());
-    SmartDashboard.putNumber("Right Motor Speed", Intake.m_launcherEncoder12.getVelocity());
+    SmartDashboard.putNumber("Left Motor Speed", Launcher.m_launcherEncoder13.getVelocity());
+    SmartDashboard.putNumber("Right Motor Speed", Launcher.m_launcherEncoder12.getVelocity());
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -566,7 +567,7 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
                     // - - - - - Launch In - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   if((stick2.getPOV() == Wire.downDpad)) {
-  Intake.LauncherIn(); 
+  Launcher.LauncherIn(); 
  }
 
 
@@ -576,14 +577,14 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 
 
  if((stick2.getPOV() == Wire.upDpad)) {
-  Intake.LauncherOut();
+  Launcher.LauncherOut();
  }
 
 
                     // - - - - - Launch Stop - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
  if((stick2.getPOV() == Wire.leftDpad)) {
-  Intake.LauncherStop(); 
+  Launcher.LauncherStop(); 
  }
              
 

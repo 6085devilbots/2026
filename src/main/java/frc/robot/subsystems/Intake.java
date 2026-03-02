@@ -26,15 +26,7 @@ public class Intake{
     private static RelativeEncoder m_intakeEncoder;
     public static SparkClosedLoopController m_intakeClosedLoopController;
 
-    public static SparkMax m_launcherSpark12;
-    public static RelativeEncoder m_launcherEncoder12;
-    public static SparkClosedLoopController m_launcherClosedLoopController12;
-
-    public static SparkMax m_launcherSpark13;
-    public static RelativeEncoder m_launcherEncoder13;
-    public static SparkClosedLoopController m_launcherClosedLoopController13;
-
-  
+    
     public static SparkMax m_targetSpark;
     public static RelativeEncoder m_targetEncoder;
     public static SparkClosedLoopController m_targetClosedLoopController;
@@ -46,14 +38,8 @@ public class Intake{
 
     public Intake(){
     
-        m_intakeLiftSpark = new SparkMax(14, MotorType.kBrushless);
-        m_intakeLiftEncoder = m_intakeLiftSpark.getAbsoluteEncoder();
-        m_intakeliftClosedLoopController = m_intakeLiftSpark.getClosedLoopController();
-        m_intakeLiftSpark.configure(Configs.IntakeLiftSetup.intakeliftConfig, ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
-        
 
-      
-         // - - - - - Intake Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        // - - - - - Intake Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
          m_intakeSpark = new SparkMax(9, MotorType.kBrushless);
          m_intakeEncoder = m_intakeSpark.getEncoder();
@@ -61,20 +47,17 @@ public class Intake{
          m_intakeSpark.configure(Configs.intakeSetup.intakeConfig, ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
          m_intakeEncoder.setPosition(0);
 
-         // - - - - - Launcher Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-         m_launcherSpark12 = new SparkMax(12, MotorType.kBrushless);
-         m_launcherEncoder12 = m_launcherSpark12.getEncoder();
-         m_launcherClosedLoopController12 = m_launcherSpark12.getClosedLoopController();
-         m_launcherSpark12.configure(Configs.launcherRightSetup.launcherRightConfig, ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
-         m_launcherEncoder12.setPosition(0);
 
-         m_launcherSpark13 = new SparkMax(13, MotorType.kBrushless);
-         m_launcherEncoder13 = m_launcherSpark13.getEncoder();
-         m_launcherClosedLoopController13 = m_launcherSpark13.getClosedLoopController();
-         m_launcherSpark13.configure(Configs.launcherLeftSetup.launcherLeftConfig, ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
-         m_launcherEncoder13.setPosition(0);
-       
+        // - - - - - Intake Lift Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        m_intakeLiftSpark = new SparkMax(14, MotorType.kBrushless);
+        m_intakeLiftEncoder = m_intakeLiftSpark.getAbsoluteEncoder();
+        m_intakeliftClosedLoopController = m_intakeLiftSpark.getClosedLoopController();
+        m_intakeLiftSpark.configure(Configs.IntakeLiftSetup.intakeliftConfig, ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
+        
+
+      
 
         // - - - - - Targeting Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -163,34 +146,7 @@ public class Intake{
 
 
 
-// - - - - - - - - - - Launcher  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-
-    public static void LauncherIn(){
-
-        m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherInSpeed, SparkMax.ControlType.kVelocity);
-        m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherInSpeed, SparkMax.ControlType.kVelocity);
-
-    }
-
-
-    public static void LauncherOut(){
-
-        m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
-        m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
-        //m_launcherClosedLoopController13.setInverted(true);
-
-    }
-
-    public static void LauncherStop(){
-
-       m_launcherClosedLoopController12.setSetpoint(0, SparkMax.ControlType.kVelocity);
-       m_launcherClosedLoopController13.setSetpoint(0, SparkMax.ControlType.kVelocity);
-
-    }
-
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
  // - - - - - - - - - - Targeting  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
