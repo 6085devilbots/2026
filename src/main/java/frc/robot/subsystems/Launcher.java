@@ -18,7 +18,6 @@ import com.revrobotics.RelativeEncoder;
 
 public class Launcher {
 
-    
 
     public static SparkMax m_launcherSpark12;
     public static RelativeEncoder m_launcherEncoder12;
