@@ -28,6 +28,8 @@ import frc.robot.Configs;
 
 
 public class MAXSwerveModule {
+
+  // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   private final SparkMax m_drivingSpark;
   private final SparkMax m_turningSpark;
 
@@ -39,7 +41,7 @@ public class MAXSwerveModule {
 
   private double m_chassisAngularOffset = 0;
   private SwerveModuleState m_desiredState = new SwerveModuleState(0.0, new Rotation2d());
-
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 

@@ -26,6 +26,7 @@ import frc.robot.Constants;
  * Basic simulation of a swerve subsystem with the methods needed by PathPlanner
  */
 public class SwerveSubsystem extends SubsystemBase {
+  // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   private final SimSwerveModule[] modules;
   private final SwerveDriveKinematics kinematics;
   private final SwerveDriveOdometry odometry;
@@ -33,7 +34,10 @@ public class SwerveSubsystem extends SubsystemBase {
   private SimGyro gyro;
   
   private Field2d field = new Field2d();
-  
+  // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
   public SwerveSubsystem() {
     gyro = new SimGyro();
     modules = new SimSwerveModule[]{
@@ -89,6 +93,8 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+
     // Update the simulated gyro, not needed in a real project
     gyro.updateRotation(getSpeeds().omegaRadiansPerSecond);
 
@@ -97,22 +103,32 @@ public class SwerveSubsystem extends SubsystemBase {
     field.setRobotPose(getPose());
   }
 
+
+
   public Pose2d getPose() {
     return odometry.getPoseMeters();
   }
+
+
 
   public void resetPose(Pose2d pose) {
     System.out.println(pose);
     odometry.resetPosition(gyro.getRotation2d(), getPositions(), pose);
   }
 
+
+
   public ChassisSpeeds getSpeeds() {
     return kinematics.toChassisSpeeds(getModuleStates());
   }
 
+
+
   public void driveFieldRelative(ChassisSpeeds fieldRelativeSpeeds) {
     driveRobotRelative(ChassisSpeeds.fromFieldRelativeSpeeds(fieldRelativeSpeeds, getPose().getRotation()));
   }
+
+
 
   public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds) {
     ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(robotRelativeSpeeds, 0.02);
@@ -120,6 +136,8 @@ public class SwerveSubsystem extends SubsystemBase {
     SwerveModuleState[] targetStates = kinematics.toSwerveModuleStates(targetSpeeds);
     setStates(targetStates);
   }
+
+
 
   public void setStates(SwerveModuleState[] targetStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(targetStates, Constants.Swerve.maxModuleSpeed);
@@ -129,6 +147,8 @@ public class SwerveSubsystem extends SubsystemBase {
     }
   }
 
+
+
   public SwerveModuleState[] getModuleStates() {
     SwerveModuleState[] states = new SwerveModuleState[modules.length];
     for (int i = 0; i < modules.length; i++) {
@@ -137,6 +157,8 @@ public class SwerveSubsystem extends SubsystemBase {
     return states;
   }
 
+
+
   public SwerveModulePosition[] getPositions() {
     SwerveModulePosition[] positions = new SwerveModulePosition[modules.length];
     for (int i = 0; i < modules.length; i++) {
@@ -144,6 +166,8 @@ public class SwerveSubsystem extends SubsystemBase {
     }
     return positions;
   }
+
+
 
   /**
    * Basic simulation of a swerve module, will just hold its current state and not use any hardware
@@ -168,6 +192,8 @@ public class SwerveSubsystem extends SubsystemBase {
     }
   }
 
+
+
   /**
    * Basic simulation of a gyro, will just hold its current state and not use any hardware
    */
@@ -182,4 +208,5 @@ public class SwerveSubsystem extends SubsystemBase {
       currentRotation = currentRotation.plus(new Rotation2d(angularVelRps * 0.02));
     }
   }
+
 }
