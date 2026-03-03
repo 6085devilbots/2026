@@ -262,14 +262,9 @@ public static double alliTest = 0;
     DataLogManager.logNetworkTables(true); // Log Netwrok Table Data
 
 
-    AutoBuilder.configureHolonomic(
-    drive::getPose,
-    drive::resetPose,
-    drive::getRobotRelativeSpeeds,
-    drive::driveRobotRelative,
-    drive.getPathFollowerConfig(),
-    drive::shouldFlipPath,
-    drive
+    NamedCommands.registerCommand(
+    "LaunchBall",
+    new LaunchBallCommand()
     );
 
 
