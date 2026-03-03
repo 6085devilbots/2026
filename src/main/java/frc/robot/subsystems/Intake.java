@@ -18,6 +18,8 @@ import com.revrobotics.AbsoluteEncoder;
 
 public class Intake{
 
+
+
     public static SparkMax m_intakeLiftSpark;
     public static AbsoluteEncoder m_intakeLiftEncoder; 
     public static SparkClosedLoopController m_intakeliftClosedLoopController;
@@ -56,20 +58,13 @@ public class Intake{
       
 
         
-
-        
     }
     
     
     
- 
 
 
-
-
-
-
-// - - - - - - - Arm Lift - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - Intake Lift - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     public static void intakeDownPos(){
         
@@ -84,6 +79,7 @@ public class Intake{
         //m_intakeliftClosedLoopController.setSetpoint(DriveConstants.intakeUp_Pos, SparkMax.ControlType.kPosition);
 
     }
+
 
     public static double intakeLiftPosition(){
         
@@ -132,20 +128,5 @@ public class Intake{
 
 
 
-
-
-
-
-
-
-
-
-
-
-// - - - - - - - - - - - Climb - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-
-    
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 }
