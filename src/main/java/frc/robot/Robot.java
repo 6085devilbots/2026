@@ -29,6 +29,7 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.reduxrobotics.sensors.canandgyro.Canandgyro;
 
@@ -262,11 +263,7 @@ public static double alliTest = 0;
     DataLogManager.logNetworkTables(true); // Log Netwrok Table Data
 
 
-    NamedCommands.registerCommand(
-    "LaunchBall",
-    new LaunchBallCommand()
-    );
-
+    
 
     
     
