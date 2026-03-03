@@ -28,6 +28,8 @@ import edu.wpi.first.math.numbers.N3;
 public final class Constants {
 
 
+
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   public static class Vision {
     public static final String kCameraName = "OV9281";
     public static final String kCameraName_2 = "OV9281_2";
@@ -46,7 +48,7 @@ public final class Constants {
     public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
 }
 
-
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 
@@ -119,7 +121,7 @@ public final class Constants {
 
 
 
-// - - - - - - - - - - - - - - - - Lift Positions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - Targeting Positions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     public static final double tarIncreaseAng_Pos = -0.3;  
     public static final double tarDecreaseAng_Pos = 0;         
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -141,22 +143,15 @@ public final class Constants {
  // - - - - - - - - - - - - - - - - Climb Position - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
     public static double liftStart = 0;
     public static double climbDownLimit = -14;
-
-
  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 
 
     // - - - - - - - - - - - - - - - - Robot Drive - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
     public static final double speedLimit = 0.1;
     public static final double rotationSpeed = 1;
-
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
-
-
-
 
 
 
@@ -176,8 +171,6 @@ public final class Constants {
    
 
 
-
-
     // - - - - - - - - - - - - - - - - Timers - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
     public static final double intakeInTimeLimit = 5;
     public static final double intakeOutTimeLimit = 0.2;
@@ -190,10 +183,12 @@ public final class Constants {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
+
+
     // - - - - - - - - - - - - - - - - Reverse Gyro - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     public static final boolean kGyroReversed = false;
-
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    
   }
 
 
