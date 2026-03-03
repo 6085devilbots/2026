@@ -805,7 +805,10 @@ rotOverRide = false;
     }
 
    
+     autoCommand = AutoBuilder.buildAuto("TestAuto");
 
+    
+}
     
 
 
