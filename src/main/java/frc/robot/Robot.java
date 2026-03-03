@@ -29,6 +29,7 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.reduxrobotics.sensors.canandgyro.Canandgyro;
@@ -805,7 +806,7 @@ rotOverRide = false;
     }
 
    
-     autoCommand = AutoBuilder.buildAuto("TestAuto");
+     m_autonomousCommand = AutoBuilder.buildAuto("TestAuto");
 
     
 }
