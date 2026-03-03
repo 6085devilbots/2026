@@ -56,7 +56,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class Camera {
 
-// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - -  - - Doubles - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
   // Read in relevant data from the Camera
   public static boolean hasTargets = false;
@@ -79,11 +79,30 @@ public class Camera {
   static double angular_P = 0.015;
   static double angular_D = 0;
 
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+
+
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
   static PIDController turnController = new PIDController(angular_P, 0, angular_D);
 
   static PIDController xDriveController = new PIDController(Y_P, 0, Y_D);
 
   static PIDController yDriveController = new PIDController(Y_P, 0, Y_D);
+
+
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+
+
+
+// - - - - - -  - - - - - - General  - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   // Change this to match the name of your camera
   public static PhotonCamera Cam_1 = new PhotonCamera("OV9281");
@@ -96,10 +115,15 @@ public class Camera {
   public static final Transform3d cameraToRobot = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,180)); 
 
 
-
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
     
+
+
+
+// - - - - - -  - - - - - - - Get Robo Pose - - - - - - - - - - - - - - - - - - - - - - 
+
 
 public static void getRobotPose(){
 
@@ -125,8 +149,14 @@ public static void getRobotPose(){
 }
 
 
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
+
+
+
+
+// - - - - - -  - - - Get Robo Rotation - - - - - - - - - - - - - - - - - - - - - - - - 
 
 public static void getRobotRot(){
 
@@ -149,7 +179,7 @@ public static void getRobotRot(){
   }
 }
 
-
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 
