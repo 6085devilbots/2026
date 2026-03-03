@@ -146,24 +146,14 @@ public class Robot extends TimedRobot {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - -
 
+
 public static double test = 0;
+
 
 // - - - - - - - - - - Intake Timers and Booleans - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  public static Timer intakeInTimer = new Timer();
-  public static boolean intakeInActive = false;
-
-  public static Timer intakeOutTimer = new Timer();
-  public static boolean intakeOutActive = false;
-
-  public static Timer intakePlayerTimer = new Timer();
-  public static boolean intakePlayerActive = false;
-
-  public static Timer intakeSwitchTimer = new Timer();
-  public static boolean intakeSwitchActive = false;
+  
  
-
-
 
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -177,7 +167,7 @@ public static Timer autoDriveTimer = new Timer();
 
 
 
-// - - - - - -                      - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   public static boolean intakeZero = false;
   public static boolean intakeDown = false;
@@ -189,8 +179,9 @@ public static Timer autoDriveTimer = new Timer();
   
   
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-public static double alliTest = 0;
 
+
+public static double alliTest = 0;
 
 
 // - - - - - - Camera Declarations - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -490,13 +481,6 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 
 
 
-
-
-
-
-
-
-
   // - - - - - - - - Intake Buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
  
@@ -617,6 +601,13 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
+
+
+
+
+// - - - - - -  - - - Automatic Rotation and Drive - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
 if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {
 
   rotOverRide = true;
@@ -643,7 +634,7 @@ rotOverRide = false;
 }
 
 
-
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 
