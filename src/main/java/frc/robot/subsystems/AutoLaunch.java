@@ -9,12 +9,14 @@ import com.pathplanner.lib.events.Event;
 
 import java.util.HashMap;
 
-public class AutoLaunch {
+public class LaunchBallCommand extends InstantCommand {
 
-
-
-    
-
+    public LaunchBallCommand() {
+        super(() -> {
+            Launcher.m_launcherClosedLoopController12
+                .setSetpoint(DriveConstants.launcherOutSpeed);
+        });
+    }
 }
 
 
