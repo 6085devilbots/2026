@@ -268,10 +268,7 @@ public static double alliTest = 0;
 
 // - - - - - - TIMER RESETS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
 
-    intakeInTimer.reset();
-    intakeOutTimer.reset();
-    intakePlayerTimer.reset();
-    intakeSwitchTimer.reset();
+   
     autoOutTimer.reset();
     autoDriveTimer.reset();
     
