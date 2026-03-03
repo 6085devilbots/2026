@@ -19,12 +19,9 @@ import java.util.HashMap;
 public class AutoLaunchCommand extends InstantCommand {
 
     
-    /*NamedCommands.registerCommand(
-    "LaunchBall",
-    new AutoLaunchCommand()
-    );
+    
 
-    */
+    
 
     public AutoLaunchCommand() {
         super(() -> {
