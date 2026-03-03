@@ -253,7 +253,7 @@ public class DriveSubsystem extends SubsystemBase {
 
 
 
-  // - - - - - - Odometry and Current Robot Position - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // - - - - - - Odometry and Current Robot Position - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
   /**
@@ -270,13 +270,20 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
 
-// Example: Create a Pose2d at (1.0 meters, 2.5 meters) with a 45-degree angle
+
+
+// - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   public static Pose2d blueHub = new Pose2d(
     4.035, // X position in meters  
     4.623,  // Y position in meters   15.167ft
     Rotation2d.fromDegrees(45.0) // Angle in degrees
 );
+
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+
 
 
   public SwerveModuleState[] roboState() {
@@ -291,9 +298,13 @@ public class DriveSubsystem extends SubsystemBase {
   };
 }
 
+
+
+
   public ChassisSpeeds getSpeeds() {
     return DriveConstants.kDriveKinematics.toChassisSpeeds(roboState());
   }
+
 
   public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds) {
     ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(robotRelativeSpeeds, 0.02);
@@ -533,9 +544,16 @@ public class DriveSubsystem extends SubsystemBase {
     return canandgyro.getAngularVelocityYaw() * (DriveConstants.kGyroReversed ? 1.0 : -1.0);
   }
   
+
+
+
+
+
   public void resetPose(Pose2d pose, boolean resetSimPose) {
     poseEstimator.resetPosition(getHeading3(),robopos(), pose);
 }
+
+
 
 
 
@@ -552,5 +570,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     }
 
+
+    
 
 }
