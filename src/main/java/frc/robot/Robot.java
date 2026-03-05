@@ -624,6 +624,9 @@ if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {
   var currentRot =  DriveSubsystem.canandgyro.getRotation2d();
   var kP = 0.005; //P gain must be tuned
   double rotError;
+
+  Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
+  Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
   
  
 
