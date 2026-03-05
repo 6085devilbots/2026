@@ -161,7 +161,7 @@ public class ProjectileTrajectory {
          * @param motorRPM
          * @return The initial velocity of the ball coming out of the shooter in meters per second
          */
-        public static double calcInitialVelocity(double motorRPM) {
+        public static double calcInitialVelocity(DriveConstants.launcherOutSpeed) {
             // Launcher wheel diameter. Probably should be put in Constants.java
             double shooterWheelDia = 0.1016; // meters
             

@@ -135,7 +135,6 @@ public class Robot extends TimedRobot {
 
   public static double rotCmmd;
   public static double distanceToTarget;
-  public static double initialVelocity;
 
 // - - - - - - - - Basic Robot Declarations - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -629,7 +628,7 @@ if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {
   Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
   Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
 
-  initialVelocity = Launcher.calcInitialVelocity(DriveConstants.launcherOutSpeed);
+  //Launcher.ballExitVelocity = Launcher.calcInitialVelocity(DriveConstants.launcherOutSpeed);
   
  
 

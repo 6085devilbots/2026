@@ -187,7 +187,6 @@ public final class Constants {
 
 
     // - - - - - - - - - - - - - - - - Trajectory - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
-    public static final double initialVelocity = 78000;
     public static final double initialHeight = 0.2;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
