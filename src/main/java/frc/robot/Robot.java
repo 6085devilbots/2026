@@ -21,6 +21,7 @@ import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.subsystems.OLDPoseEstimatorSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launcher;
+import frc.robot.subsystems.Launcher.ProjectileTrajectory;
 
 import java.security.KeyPair;
 import java.util.List;
@@ -628,13 +629,17 @@ if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {
   Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
   Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
 
-  //Launcher.ballExitVelocity = Launcher.calcInitialVelocity(DriveConstants.launcherOutSpeed);
-  
- 
-
   double distanceToTarget = PhotonUtils.getDistanceToPose(currentPos, DriveSubsystem.blueHub);
   Rotation2d targetYaw = PhotonUtils.getYawToPose(currentPos,DriveSubsystem.blueHub);
 
+  double iniVel = ProjectileTrajectory.calcInitialVelocity(DriveConstants.launcherOutSpeed);
+  
+  double launchAngle = ProjectileTrajectory.calcLaunchAngle(iniVel, distanceToTarget, DriveConstants.initialHeight, 1.524);
+
+  double actLaunchAng = DriveConstants.startAngle - (DriveConstants.real90 - (( 1 / 360) * launchAngle));
+
+  
+ 
   rotError = targetYaw.minus(currentRot).getDegrees();
   rotCmmd = rotError * kP ;
      

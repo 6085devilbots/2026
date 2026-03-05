@@ -188,6 +188,9 @@ public final class Constants {
 
     // - - - - - - - - - - - - - - - - Trajectory - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
     
+    public static double initialHeight = .395;
+    public static double real90 = (1 / 360) * 90;
+    public static double startAngle = 0.8; // Just a guss update and actual test for number with robot
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

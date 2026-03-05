@@ -180,7 +180,10 @@ public class ProjectileTrajectory {
             // Unfortuantely, the world is not perfect so we need an efficency factor. We calculated it ot be about .785 earlier
             return ballExitVelocity * .785;
         }
+
     }
+
+
 
 
 
