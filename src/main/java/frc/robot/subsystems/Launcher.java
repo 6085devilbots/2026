@@ -10,6 +10,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import frc.robot.Configs;
 
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Robot;
 
 import com.revrobotics.RelativeEncoder;
 
@@ -137,19 +138,19 @@ public class ProjectileTrajectory {
          * shooter should be set to.
          * 
          * @param initialVelocity Initial Velocity in meters per second
-         * @param distanceFromGoal Distance from the goal in meters
+         * @param distanceToTarget Distance from the goal in meters
          * @param initialHeight Height that the robot is shooting from in meters
          * @param targetHeight Height of the target in meters
          * @return The angle that the robot should launch at for the ball to go in the
          *         goal in degrees
          */
-        public static double calcLaunchAngle(double initialVelocity, double distanceFromGoal, double initialHeight,
+        public static double calcLaunchAngle(double initialVelocity, double distancToTarget, double initialHeight,
                 double targetHeight) {
             final double g = 9.81; // Switch to 32.2 to use feet as your units
 
             double quadraticTerm = (Math.pow(initialVelocity, 2) + Math.sqrt(Math.pow(initialVelocity, 4)
-                    - g * (g * Math.pow(distanceFromGoal, 2) + 2 * (targetHeight - initialHeight) * Math.pow(initialVelocity, 2))))
-                    / (g * distanceFromGoal);
+                    - g * (g * Math.pow(Robot.distanceToTarget, 2) + 2 * (targetHeight - initialHeight) * Math.pow(initialVelocity, 2))))
+                    / (g * Robot.distanceToTarget);
             return Math.toDegrees(Math.atan(quadraticTerm));
         }
 

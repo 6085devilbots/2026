@@ -135,6 +135,7 @@ public class Robot extends TimedRobot {
 
   public static double rotCmmd;
   public static double distanceToTarget;
+  public static double initialVelocity;
 
 // - - - - - - - - Basic Robot Declarations - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -627,14 +628,16 @@ if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {
 
   Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
   Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
+
+  initialVelocity = Launcher.calcInitialVelocity(DriveConstants.launcherOutSpeed);
   
  
 
-    double distanceToTarget = PhotonUtils.getDistanceToPose(currentPos, DriveSubsystem.blueHub);
-    Rotation2d targetYaw = PhotonUtils.getYawToPose(currentPos,DriveSubsystem.blueHub);
+  double distanceToTarget = PhotonUtils.getDistanceToPose(currentPos, DriveSubsystem.blueHub);
+  Rotation2d targetYaw = PhotonUtils.getYawToPose(currentPos,DriveSubsystem.blueHub);
 
-    rotError = targetYaw.minus(currentRot).getDegrees();
-    rotCmmd = rotError * kP ;
+  rotError = targetYaw.minus(currentRot).getDegrees();
+  rotCmmd = rotError * kP ;
      
 
 
