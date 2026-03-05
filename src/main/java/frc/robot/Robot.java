@@ -617,12 +617,12 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 // - - - - - -  - - - Automatic Rotation and Drive - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
-if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {
+if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {  // Add to check for valid camera data/updatedPose !!!!!!
 
   rotOverRide = true;
 
   var currentPos = DriveSubsystem.getPose2();
-  var currentRot =  DriveSubsystem.canandgyro.getRotation2d();
+  var currentRot =  DriveSubsystem.canandgyro.getRotation2d(); 
   var kP = 0.005; //P gain must be tuned
   double rotError;
 
@@ -639,11 +639,13 @@ if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {
   double actLaunchAng = DriveConstants.startAngle - (DriveConstants.real90 - (( 1 / 360) * launchAngle));
 
   
+  Launcher.m_targetClosedLoopController.setSetpoint(actLaunchAng, SparkMax.ControlType.kPosition);
+                                                                                                                         // Make liveBottom.java spark 7 is livebottom
  
   rotError = targetYaw.minus(currentRot).getDegrees();
   rotCmmd = rotError * kP ;
      
-
+  
 
 }else{
 
