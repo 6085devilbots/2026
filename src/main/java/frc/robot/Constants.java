@@ -169,6 +169,9 @@ public final class Constants {
 
     public static final double manualClimbSpeed = 1;
 
+    public static final double liveBottomInSpeed = 0.1;
+    public static final double liveBottomOutSpeed = -0.1;
+
 
    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
    

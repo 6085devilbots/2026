@@ -18,9 +18,9 @@ import com.revrobotics.AbsoluteEncoder;
 
 public class LiveBottom {
 
-    private final SparkMax m_intakeSpark;
-    private static RelativeEncoder m_intakeEncoder;
-    public static SparkClosedLoopController m_intakeClosedLoopController;
+    public final SparkMax m_liveBottomSpark;
+    public static RelativeEncoder m_liveBottomEncoder;
+    public static SparkClosedLoopController m_liveBottomClosedLoopController;
 
     public LiveBottom(){
 
@@ -30,7 +30,7 @@ public class LiveBottom {
          m_liveBottomSpark = new SparkMax(17, MotorType.kBrushless);
          m_liveBottomEncoder = m_liveBottomSpark.getEncoder();
          m_liveBottomClosedLoopController = m_liveBottomSpark.getClosedLoopController();
-         m_liveBottomBottomSpark.configure(Configs.liveBottomSetup.liveBottomConfig, ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
+         m_liveBottomSpark.configure(Configs.liveBottomSetup.liveBottomConfig, ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
          m_liveBottomEncoder.setPosition(0);
 
 
@@ -39,14 +39,14 @@ public class LiveBottom {
 
     public static void LiveBottomIn(){
     
-    m_liveBottomClosedLoopController.setSetpoint(DriveConstants.intakeInSpeed, SparkMax.ControlType.kDutyCycle);  // FIX!!!!
+      m_liveBottomClosedLoopController.setSetpoint(DriveConstants.liveBottomInSpeed, SparkMax.ControlType.kDutyCycle);  
 
 
     }
 
     public static void LiveBottomOut(){
     
-
+      m_liveBottomClosedLoopController.setSetpoint(DriveConstants.liveBottomOutSpeed, SparkMax.ControlType.kDutyCycle);  
 
 
     }

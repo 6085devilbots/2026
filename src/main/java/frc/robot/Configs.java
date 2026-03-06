@@ -269,6 +269,44 @@ public static final class ClimbSetup {
 
 
 
+// - - - - - - - Live Bottom Motor Config - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+public static final class liveBottomSetup {
+        public static final SparkMaxConfig liveBottomConfig = new SparkMaxConfig();
+
+        
+        static {
+                // Use module constants to calculate conversion factors and feed forward gain.
+                double liveBottomFactor = 1;
+                double liveBottomVelocityFeedForward = 0.0034;
+    
+                liveBottomConfig
+                        .idleMode(IdleMode.kCoast)
+                        .inverted(true)
+                        .smartCurrentLimit(40);
+                liveBottomConfig.encoder
+                        .positionConversionFactor(liveBottomFactor) // meters
+                        .velocityConversionFactor(liveBottomFactor); // meters per second
+                liveBottomConfig.closedLoop
+                        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+                        // These are example gains you may need to them for your own robot!
+                        .pid(.001, 0, .0001)
+                         .outputRange(0, 1)
+                        .feedForward.kV(liveBottomVelocityFeedForward) ;
+                       
+            }
+
+
+
+
+            
+        
+    }
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
 
 
 
