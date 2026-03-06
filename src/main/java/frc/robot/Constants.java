@@ -116,7 +116,7 @@ public final class Constants {
     public static final int kIntakeCanId = 9;
     public static final int kLauncherCan12Id = 12;
     public static final int kLauncherCan13Id = 13;
-    public static final int kLiveBottomId = 17;
+    public static final int kLiveBottomId = 7;
 
     
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

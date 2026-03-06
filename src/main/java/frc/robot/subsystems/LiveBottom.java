@@ -27,7 +27,7 @@ public class LiveBottom {
 
         // - - - - - LiveBottom Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-         m_liveBottomSpark = new SparkMax(17, MotorType.kBrushless);
+         m_liveBottomSpark = new SparkMax(7, MotorType.kBrushless);
          m_liveBottomEncoder = m_liveBottomSpark.getEncoder();
          m_liveBottomClosedLoopController = m_liveBottomSpark.getClosedLoopController();
          m_liveBottomSpark.configure(Configs.liveBottomSetup.liveBottomConfig, ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
