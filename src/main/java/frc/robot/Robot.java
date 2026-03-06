@@ -21,6 +21,7 @@ import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.subsystems.OLDPoseEstimatorSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launcher;
+import frc.robot.subsystems.LiveBottom;
 import frc.robot.subsystems.Launcher.ProjectileTrajectory;
 
 import java.security.KeyPair;
@@ -29,6 +30,7 @@ import java.util.Optional;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -113,8 +115,11 @@ import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.simulation.PhotonCameraSim;
 import org.photonvision.simulation.SimCameraProperties;
 import org.photonvision.simulation.VisionSystemSim;
- import org.photonvision.targeting.PhotonTrackedTarget;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
  
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+
 
 
 
@@ -617,7 +622,10 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 // - - - - - -  - - - Automatic Rotation and Drive - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
-if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {  // Add to check for valid camera data/updatedPose !!!!!!
+PhotonPipelineResult result1 = Cam_1.getLatestResult();
+PhotonPipelineResult result2 = Cam_2.getLatestResult();
+
+if(RobotContainer.m_driverController.getRawButton(Wire.bButton) && (result1.hasTargets()) && (result2.hasTargets())) {  
 
   rotOverRide = true;
 
@@ -632,24 +640,35 @@ if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {  // Add to ch
   double distanceToTarget = PhotonUtils.getDistanceToPose(currentPos, DriveSubsystem.blueHub);
   Rotation2d targetYaw = PhotonUtils.getYawToPose(currentPos,DriveSubsystem.blueHub);
 
-  double iniVel = ProjectileTrajectory.calcInitialVelocity(DriveConstants.launcherOutSpeed);
+  double iniLaunchVel = ProjectileTrajectory.calcInitialVelocity(Launcher.ProjectileTrajectory.avgLaunchVelocity());
+   
   
-  double launchAngle = ProjectileTrajectory.calcLaunchAngle(iniVel, distanceToTarget, DriveConstants.initialHeight, 1.524);
+  double launchAngle = ProjectileTrajectory.calcLaunchAngle(iniLaunchVel, distanceToTarget, DriveConstants.initialHeight, 1.524);
 
-  double actLaunchAng = DriveConstants.startAngle - (DriveConstants.real90 - (( 1 / 360) * launchAngle));
+  double calcLaunchAng = DriveConstants.startAngle - (DriveConstants.real90 - (( 1 / 360) * launchAngle));
 
-  
-  Launcher.m_targetClosedLoopController.setSetpoint(actLaunchAng, SparkMax.ControlType.kPosition);
-                                                                                                                         // Make liveBottom.java spark 7 is livebottom
- 
+  Launcher.m_targetClosedLoopController.setSetpoint(calcLaunchAng, SparkMax.ControlType.kPosition);
+             
+  double actLaunchAng = Launcher.m_targetEncoder.getPosition();
+
+  SmartDashboard.putNumber("Launch Ang Encoder", actLaunchAng);
+
+
   rotError = targetYaw.minus(currentRot).getDegrees();
   rotCmmd = rotError * kP ;
      
+
+  if((((calcLaunchAng) - (actLaunchAng)) < ((calcLaunchAng) * (0.05))) && (rotError < DriveConstants.maxRotError)) {
+
+  LiveBottom.LiveBottomIn();
+
+}
   
 
 }else{
 
 rotOverRide = false;
+LiveBottom.LiveBottomStop();
 
 }
 
@@ -659,6 +678,9 @@ rotOverRide = false;
 
 
 
+
+
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 

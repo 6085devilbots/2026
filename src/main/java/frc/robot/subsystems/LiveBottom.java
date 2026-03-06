@@ -51,4 +51,11 @@ public class LiveBottom {
 
     }
 
+    public static void LiveBottomStop(){
+    
+      m_liveBottomClosedLoopController.setSetpoint(0, SparkMax.ControlType.kDutyCycle);  
+
+
+    }
+
 }   

@@ -128,9 +128,21 @@ public Launcher(){
 
 
 
+
+
+
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 public class ProjectileTrajectory {
+
+        public static double avgLaunchVelocity(){
+            double rVelocity = m_launcherEncoder12.getVelocity();
+            double lVelocity = m_launcherEncoder13.getVelocity();
+
+         return ((rVelocity + lVelocity) / 2);
+        };
+
         /**
          * 
          * Use this method to calculate the launch angle (from horizontal) that that the
