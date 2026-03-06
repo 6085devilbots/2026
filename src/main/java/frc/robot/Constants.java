@@ -109,13 +109,14 @@ public final class Constants {
     public static final int kRearRightTurningCanId = 11;
 
 
-    // - - - Arm Can IDs - - - - - - - - - - - - 
+    // - - - Can IDs - - - - - - - - - - - - 
     public static final int kIntakeLiftCanId = 14;
     public static final int kExtendArmCanId = 7;
     public static final int kTargetingCanId = 15;
     public static final int kIntakeCanId = 9;
     public static final int kLauncherCan12Id = 12;
     public static final int kLauncherCan13Id = 13;
+    public static final int kLiveBottomId = 17;
 
     
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
