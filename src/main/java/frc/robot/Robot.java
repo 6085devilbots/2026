@@ -139,7 +139,7 @@ public class Robot extends TimedRobot {
 
   public static double lift_Position; 
 
-  public static double rotCmmd;
+  
   public static double distanceToTarget;
 
 // - - - - - - - - Basic Robot Declarations - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -184,7 +184,7 @@ public static Timer autoDriveTimer = new Timer();
   public static boolean climbButtonPressed = false;
   public static boolean autonLatch = false;
   public static boolean fullAuton = false;
-  public static boolean rotOverRide = false;
+  
   
   
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -622,52 +622,18 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 // - - - - - -  - - - Automatic Rotation and Drive - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
-PhotonPipelineResult result1 = Cam_1.getLatestResult();
-PhotonPipelineResult result2 = Cam_2.getLatestResult();
+
+PhotonPipelineResult result1 = Vision.Cam_1.getLatestResult();
+PhotonPipelineResult result2 = Vision.Cam_2.getLatestResult();
 
 if(RobotContainer.m_driverController.getRawButton(Wire.bButton) && (result1.hasTargets()) && (result2.hasTargets())) {  
 
-  rotOverRide = true;
+  Launcher.AutoLaunch.Launch();
 
-  var currentPos = DriveSubsystem.getPose2();
-  var currentRot =  DriveSubsystem.canandgyro.getRotation2d(); 
-  var kP = 0.005; //P gain must be tuned
-  double rotError;
-
-  Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
-  Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
-
-  double distanceToTarget = PhotonUtils.getDistanceToPose(currentPos, DriveSubsystem.blueHub);
-  Rotation2d targetYaw = PhotonUtils.getYawToPose(currentPos,DriveSubsystem.blueHub);
-
-  double iniLaunchVel = ProjectileTrajectory.calcInitialVelocity(Launcher.ProjectileTrajectory.avgLaunchVelocity());
-   
-  
-  double launchAngle = ProjectileTrajectory.calcLaunchAngle(iniLaunchVel, distanceToTarget, DriveConstants.initialHeight, 1.524);
-
-  double calcLaunchAng = DriveConstants.startAngle - (DriveConstants.real90 - (( 1 / 360) * launchAngle));
-
-  Launcher.m_targetClosedLoopController.setSetpoint(calcLaunchAng, SparkMax.ControlType.kPosition);
-             
-  double actLaunchAng = Launcher.m_targetEncoder.getPosition();
-
-  SmartDashboard.putNumber("Launch Ang Encoder", actLaunchAng);
-
-
-  rotError = targetYaw.minus(currentRot).getDegrees();
-  rotCmmd = rotError * kP ;
-     
-
-  if((((calcLaunchAng) - (actLaunchAng)) < ((calcLaunchAng) * (0.05))) && (rotError < DriveConstants.maxRotError)) {
-
-  LiveBottom.LiveBottomIn();
-
-}
-  
 
 }else{
 
-rotOverRide = false;
+Launcher.rotOverRide = false;
 LiveBottom.LiveBottomStop();
 
 }

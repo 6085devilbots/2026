@@ -11,9 +11,22 @@ import frc.robot.Configs;
 
 import frc.robot.Constants.DriveConstants;
 
+import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonPipelineResult;
+
 import com.revrobotics.RelativeEncoder;
 
-
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import frc.robot.Constants.AutoConstants;
+import frc.robot.subsystems.Intake;
+import frc.robot.Vision;
+import frc.robot.subsystems.AutoLaunchCommand;
+import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.DriveSubsystem;
 
 
 
@@ -32,7 +45,8 @@ public class Launcher {
     public static RelativeEncoder m_targetEncoder;
     public static SparkClosedLoopController m_targetClosedLoopController;
     
-
+    public static boolean rotOverRide = false;
+    public static double rotCmmd;
 
 public Launcher(){
 
@@ -198,7 +212,55 @@ public class ProjectileTrajectory {
 
 
 
+public class AutoLaunch {
 
+    public static void Launch(){
+
+
+ rotOverRide = true;
+
+  var currentPos = DriveSubsystem.getPose2();
+  var currentRot =  DriveSubsystem.canandgyro.getRotation2d(); 
+  double kP = 0.005; //P gain must be tuned
+  double rotError;
+
+  Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
+  Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
+
+  double distanceToTarget = PhotonUtils.getDistanceToPose(currentPos, DriveSubsystem.blueHub);
+  Rotation2d targetYaw = PhotonUtils.getYawToPose(currentPos,DriveSubsystem.blueHub);
+
+  double iniLaunchVel = ProjectileTrajectory.calcInitialVelocity(Launcher.ProjectileTrajectory.avgLaunchVelocity());
+   
+  
+  double launchAngle = ProjectileTrajectory.calcLaunchAngle(iniLaunchVel, distanceToTarget, DriveConstants.initialHeight, 1.524);
+
+  double calcLaunchAng = DriveConstants.startAngle - (DriveConstants.real90 - (( 1 / 360) * launchAngle));
+
+  Launcher.m_targetClosedLoopController.setSetpoint(calcLaunchAng, SparkMax.ControlType.kPosition);
+             
+  double actLaunchAng = Launcher.m_targetEncoder.getPosition();
+
+  SmartDashboard.putNumber("Launch Ang Encoder", actLaunchAng);
+
+
+  rotError = targetYaw.minus(currentRot).getDegrees();
+  rotCmmd = rotError * kP ;
+     
+
+  if((((calcLaunchAng) - (actLaunchAng)) < ((calcLaunchAng) * (0.05))) && (rotError < DriveConstants.maxRotError)) {
+
+  LiveBottom.LiveBottomIn();
+
+    }
+    
+
+
+
+}
+
+
+}
 
 
 }

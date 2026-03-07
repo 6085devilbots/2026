@@ -390,8 +390,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     double rot2;     // Creates second rotation variable to lock out drive code from resetting rot and not using rotCmmd
 
-    if(Robot.rotOverRide){
-      rot2 = Robot.rotCmmd;  // If rot overide is true then rotation is told to be our rotation needed to point at the hub
+    if(Launcher.rotOverRide){
+      rot2 = Launcher.rotCmmd;  // If rot overide is true then rotation is told to be our rotation needed to point at the hub
 
     }else{
       rot2 = rot;  // Says if rotation Override isn't true then rot2 should be the same as the roation variable originally was so robot drive as usual 
