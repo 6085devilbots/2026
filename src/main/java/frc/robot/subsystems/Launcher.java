@@ -248,6 +248,12 @@ public class AutoLaunch {
   rotError = targetYaw.minus(currentRot).getDegrees();
   rotCmmd = rotError * kP ;
      
+  SmartDashboard.putNumber("RotError", calcLaunchAng);
+  SmartDashboard.putNumber("TargetYaw", targetYaw.getDegrees());
+  SmartDashboard.putNumber("RotCmmd", rotCmmd);
+
+  SmartDashboard.putNumber("Distance To Target", distanceToTarget);
+
 
   //if((((calcLaunchAng) - (actLaunchAng)) < ((calcLaunchAng) * (0.05))) && (rotError < DriveConstants.maxRotError)) {
 
