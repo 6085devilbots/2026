@@ -277,7 +277,7 @@ public class DriveSubsystem extends SubsystemBase {
   public static Pose2d blueHub = new Pose2d(
     4.035, // X position in meters  
     4.623,  // Y position in meters   15.167ft
-    Rotation2d.fromDegrees(45.0) // Angle in degrees
+    Rotation2d.fromDegrees(0) // Angle in degrees
 );
 
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -286,9 +286,9 @@ public class DriveSubsystem extends SubsystemBase {
 // - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   public static Pose2d leftField = new Pose2d(
-    4.035, // X position in meters  
-    4.623,  // Y position in meters   15.167ft
-    Rotation2d.fromDegrees(45.0) // Angle in degrees
+    6.069, // X position in meters  
+    1,  // Y position in meters   15.167ft
+    Rotation2d.fromDegrees(0) // Angle in degrees
 );
 
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -300,9 +300,9 @@ public class DriveSubsystem extends SubsystemBase {
 // - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   public static Pose2d rightField = new Pose2d(
-    4.035, // X position in meters  
-    4.623,  // Y position in meters   15.167ft
-    Rotation2d.fromDegrees(45.0) // Angle in degrees
+    1, // X position in meters  
+    2,  // Y position in meters   15.167ft
+    Rotation2d.fromDegrees(0) // Angle in degrees
 );
 
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
