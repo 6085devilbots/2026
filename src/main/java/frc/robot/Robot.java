@@ -647,7 +647,7 @@ LiveBottom.LiveBottomStop();
 
 if(RobotContainer.m_driverController.getRawButton(Wire.yButton) && ((result1.hasTargets()) || (result2.hasTargets()))) {  
 
-  Launcher.AutoLaunch.Launch(DriveSubsystem.blueHub);
+  Launcher.AutoLaunch.Launch(DriveSubsystem.rightField);
 
 
 }else{
@@ -668,7 +668,7 @@ LiveBottom.LiveBottomStop();
 
 if(RobotContainer.m_driverController.getRawButton(Wire.aButton) && ((result1.hasTargets()) || (result2.hasTargets()))) {  
 
-  Launcher.AutoLaunch.Launch(DriveSubsystem.blueHub);
+  Launcher.AutoLaunch.Launch(DriveSubsystem.leftField);
 
 
 }else{
