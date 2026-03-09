@@ -502,21 +502,21 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 
  
  
-  if(RobotContainer.m_driverController.getRawButton(Wire.aButton)) {
+  /*if(RobotContainer.m_driverController.getRawButton(Wire.aButton)) {
     Intake.IntakeOut();
     
   }
 
-
+*/
 
 
 
                    // - - - - - - - PUT INTAKE DOWN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - 
   
-  if(RobotContainer.m_driverController.getRawButton(Wire.yButton)) {  
+  /*if(RobotContainer.m_driverController.getRawButton(Wire.yButton)) {  
     Intake.IntakeIn();
  }
-
+*/
 
                   
 
@@ -626,9 +626,9 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 PhotonPipelineResult result1 = Vision.Cam_1.getLatestResult();
 PhotonPipelineResult result2 = Vision.Cam_2.getLatestResult();
 
-if(RobotContainer.m_driverController.getRawButton(Wire.bButton) && (result1.hasTargets()) && (result2.hasTargets())) {  
+if(RobotContainer.m_driverController.getRawButton(Wire.bButton) && ((result1.hasTargets()) || (result2.hasTargets()))) {  
 
-  Launcher.AutoLaunch.Launch();
+  Launcher.AutoLaunch.Launch(DriveSubsystem.blueHub);
 
 
 }else{
@@ -640,6 +640,49 @@ LiveBottom.LiveBottomStop();
 
 
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+// - - - - - -  - - - Shoot Across Field - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+if(RobotContainer.m_driverController.getRawButton(Wire.yButton) && ((result1.hasTargets()) || (result2.hasTargets()))) {  
+
+  Launcher.AutoLaunch.Launch(DriveSubsystem.blueHub);
+
+
+}else{
+
+Launcher.rotOverRide = false;
+LiveBottom.LiveBottomStop();
+
+}
+
+
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+
+// - - - - - -  - - - Shoot Across Field - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+if(RobotContainer.m_driverController.getRawButton(Wire.aButton) && ((result1.hasTargets()) || (result2.hasTargets()))) {  
+
+  Launcher.AutoLaunch.Launch(DriveSubsystem.blueHub);
+
+
+}else{
+
+Launcher.rotOverRide = false;
+LiveBottom.LiveBottomStop();
+
+}
+
+
+
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
 
 
 

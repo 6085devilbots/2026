@@ -27,6 +27,7 @@ import frc.robot.Vision;
 import frc.robot.subsystems.AutoLaunchCommand;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveSubsystem;
+import edu.wpi.first.math.geometry.Pose2d;
 
 
 
@@ -214,7 +215,7 @@ public class ProjectileTrajectory {
 
 public class AutoLaunch {
 
-    public static void Launch(){
+    public static void Launch(Pose2d tarGoal){
 
 
  rotOverRide = true;
@@ -224,11 +225,11 @@ public class AutoLaunch {
   double kP = 0.005; //P gain must be tuned
   double rotError;
 
-  Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
-  Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
+  //Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
+  //Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
 
-  double distanceToTarget = PhotonUtils.getDistanceToPose(currentPos, DriveSubsystem.blueHub);
-  Rotation2d targetYaw = PhotonUtils.getYawToPose(currentPos,DriveSubsystem.blueHub);
+  double distanceToTarget = PhotonUtils.getDistanceToPose(currentPos, tarGoal);
+  Rotation2d targetYaw = PhotonUtils.getYawToPose(currentPos,tarGoal);
 
   double iniLaunchVel = ProjectileTrajectory.calcInitialVelocity(Launcher.ProjectileTrajectory.avgLaunchVelocity());
    
@@ -237,22 +238,22 @@ public class AutoLaunch {
 
   double calcLaunchAng = DriveConstants.startAngle - (DriveConstants.real90 - (( 1 / 360) * launchAngle));
 
-  Launcher.m_targetClosedLoopController.setSetpoint(calcLaunchAng, SparkMax.ControlType.kPosition);
+  //Launcher.m_targetClosedLoopController.setSetpoint(calcLaunchAng, SparkMax.ControlType.kPosition);
              
   double actLaunchAng = Launcher.m_targetEncoder.getPosition();
 
   SmartDashboard.putNumber("Launch Ang Encoder", actLaunchAng);
-
+  SmartDashboard.putNumber("Wanted Launch Angle", calcLaunchAng);
 
   rotError = targetYaw.minus(currentRot).getDegrees();
   rotCmmd = rotError * kP ;
      
 
-  if((((calcLaunchAng) - (actLaunchAng)) < ((calcLaunchAng) * (0.05))) && (rotError < DriveConstants.maxRotError)) {
+  //if((((calcLaunchAng) - (actLaunchAng)) < ((calcLaunchAng) * (0.05))) && (rotError < DriveConstants.maxRotError)) {
 
-  LiveBottom.LiveBottomIn();
+  //LiveBottom.LiveBottomIn();
 
-    }
+    //}
     
 
 
