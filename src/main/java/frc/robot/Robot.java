@@ -19,10 +19,10 @@ import frc.robot.subsystems.AutoLaunchCommand;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.subsystems.OLDPoseEstimatorSubsystem;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launcher;
-import frc.robot.subsystems.LiveBottom;
-import frc.robot.subsystems.Launcher.ProjectileTrajectory;
+//import frc.robot.subsystems.LiveBottom;
+import frc.robot.subsystems.ProjectileTrajectory;
+import frc.robot.subsystems.AutoLaunch;
 
 import java.security.KeyPair;
 import java.util.List;
@@ -151,7 +151,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private Intake IntakeActive;
+  //private Intake IntakeActive;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -257,7 +257,7 @@ public static double alliTest = 0;
 
     m_robotContainer = new RobotContainer();
 
-    IntakeActive = new Intake();
+    //IntakeActive = new Intake();
 
     SmartDashboard.putData("Field", DriveSubsystem.m_field);
    
@@ -316,10 +316,10 @@ public static double alliTest = 0;
     SmartDashboard.putNumber("RR Encoder", DriveSubsystem.m_rearRight.readEncoders());
 
     SmartDashboard.putNumber("Intake Lift Position", Intake.intakeLiftPosition());
-    SmartDashboard.putNumber("Target Position", Launcher.targetPosition());
+    SmartDashboard.putNumber("Target Position", Intake.targetPosition());
 
-    SmartDashboard.putNumber("LeftLaunch Current", Launcher.m_launcherSpark13.getOutputCurrent());
-    SmartDashboard.putNumber("RightLaunch Current", Launcher.m_launcherSpark12.getOutputCurrent());
+    //SmartDashboard.putNumber("LeftLaunch Current", Launcher.m_launcherSpark13.getOutputCurrent());
+    //SmartDashboard.putNumber("RightLaunch Current", Launcher.m_launcherSpark12.getOutputCurrent());
 
     SmartDashboard.putBoolean("Full Auton", fullAuton);
 
@@ -445,7 +445,8 @@ public static double alliTest = 0;
     SmartDashboard.putNumber("RR Encoder", DriveSubsystem.m_rearRight.readEncoders());
 
     SmartDashboard.putNumber("Intake Lift Position", Intake.intakeLiftPosition());
-    SmartDashboard.putNumber("Target Position", Launcher.targetPosition());
+    double test = Intake.m_targetEncoder2.getPosition();
+    SmartDashboard.putNumber("Target Position", test);
    
     SmartDashboard.putNumber("Drive Speed", DriveConstants.kMaxSpeedMetersPerSecond);
 
@@ -454,8 +455,8 @@ public static double alliTest = 0;
 
     SmartDashboard.putNumber("ArmLift Current", Intake.m_intakeLiftSpark.getOutputCurrent());
 
-    SmartDashboard.putNumber("LeftLaunch Current", Launcher.m_launcherSpark13.getOutputCurrent());
-    SmartDashboard.putNumber("RightLaunch Current", Launcher.m_launcherSpark12.getOutputCurrent());
+    //SmartDashboard.putNumber("LeftLaunch Current", Launcher.m_launcherSpark13.getOutputCurrent());
+    //SmartDashboard.putNumber("RightLaunch Current", Launcher.m_launcherSpark12.getOutputCurrent());
 
     //SmartDashboard.putNumber("Lift Current", Intake.m_ClimberSpark.getOutputCurrent());
     //SmartDashboard.putNumber("Climb Pos", Intake.ClimbPosition());
@@ -466,8 +467,8 @@ public static double alliTest = 0;
     //SmartDashboard.putNumber("rightXstick1", stick1.getRawAxis(Wire.rightStickX));
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    SmartDashboard.putNumber("Left Motor Speed", Launcher.m_launcherEncoder13.getVelocity());
-    SmartDashboard.putNumber("Right Motor Speed", Launcher.m_launcherEncoder12.getVelocity());
+    //SmartDashboard.putNumber("Left Motor Speed", Launcher.m_launcherEncoder13.getVelocity());
+    //SmartDashboard.putNumber("Right Motor Speed", Launcher.m_launcherEncoder12.getVelocity());
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -565,7 +566,7 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
                     // - - - - - Launch In - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   if((stick2.getPOV() == Wire.downDpad)) {
-  Launcher.LauncherIn(); 
+  Intake.LauncherIn(); 
  }
 
 
@@ -575,14 +576,14 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 
 
  if((stick2.getPOV() == Wire.upDpad)) {
-  Launcher.LauncherOut();
+  Intake.LauncherOut();
  }
 
 
                     // - - - - - Launch Stop - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
  if((stick2.getPOV() == Wire.leftDpad)) {
-  Launcher.LauncherStop(); 
+  Intake.LauncherStop(); 
  }
              
 
@@ -600,7 +601,7 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 
 
  if(stick2.getRawButton(Wire.aButton)) {
-    Launcher.TargetIncrease();
+    Intake.TargetIncrease();
     
   }
 
@@ -608,7 +609,7 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 
 
  if(stick2.getRawButton(Wire.bButton)) {
-    Launcher.TargetDecrease();
+    Intake.TargetDecrease();
     
   }
 
@@ -628,13 +629,14 @@ PhotonPipelineResult result2 = Vision.Cam_2.getLatestResult();
 
 if(RobotContainer.m_driverController.getRawButton(Wire.bButton) && ((result1.hasTargets()) || (result2.hasTargets()))) {  
 
-  Launcher.AutoLaunch.Launch(DriveSubsystem.blueHub);
+  AutoLaunch.Launch(DriveSubsystem.redHub);
 
 
 }else{
 
 Launcher.rotOverRide = false;
-LiveBottom.LiveBottomStop();
+//LiveBottom.LiveBottomStop();
+Intake.LauncherStop();        // TEMPORARY FIX
 
 }
 
@@ -647,13 +649,13 @@ LiveBottom.LiveBottomStop();
 
 if(RobotContainer.m_driverController.getRawButton(Wire.yButton) && ((result1.hasTargets()) || (result2.hasTargets()))) {  
 
-  Launcher.AutoLaunch.Launch(DriveSubsystem.rightField);
+  AutoLaunch.Launch(DriveSubsystem.rightField);
 
 
 }else{
 
 Launcher.rotOverRide = false;
-LiveBottom.LiveBottomStop();
+//LiveBottom.LiveBottomStop();
 
 }
 
@@ -668,13 +670,13 @@ LiveBottom.LiveBottomStop();
 
 if(RobotContainer.m_driverController.getRawButton(Wire.aButton) && ((result1.hasTargets()) || (result2.hasTargets()))) {  
 
-  Launcher.AutoLaunch.Launch(DriveSubsystem.leftField);
+  AutoLaunch.Launch(DriveSubsystem.leftField);
 
 
 }else{
 
 Launcher.rotOverRide = false;
-LiveBottom.LiveBottomStop();
+//LiveBottom.LiveBottomStop();
 
 }
 

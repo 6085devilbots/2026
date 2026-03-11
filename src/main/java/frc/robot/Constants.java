@@ -111,7 +111,6 @@ public final class Constants {
 
     // - - - Can IDs - - - - - - - - - - - - 
     public static final int kIntakeLiftCanId = 14;
-    public static final int kExtendArmCanId = 7;
     public static final int kTargetingCanId = 15;
     public static final int kIntakeCanId = 9;
     public static final int kLauncherCan12Id = 12;
@@ -194,7 +193,7 @@ public final class Constants {
     
     public static double initialHeight = .395;
     public static double real90 = (1 / 360) * 90;
-    public static double startAngle = 0.8; // Just a guss update and actual test for number with robot
+    public static double startAngle = 0.89;// 0.890 to 0.855
     public static double maxRotError = 4;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

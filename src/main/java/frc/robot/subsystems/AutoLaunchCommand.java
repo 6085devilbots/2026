@@ -26,8 +26,8 @@ public class AutoLaunchCommand extends InstantCommand {
     public AutoLaunchCommand() {
         super(() -> {
             
-        Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherInSpeed, SparkMax.ControlType.kVelocity);
-        Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherInSpeed, SparkMax.ControlType.kVelocity);
+        Intake.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherInSpeed, SparkMax.ControlType.kVelocity);
+        Intake.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherInSpeed, SparkMax.ControlType.kVelocity);
 
         });
     }
