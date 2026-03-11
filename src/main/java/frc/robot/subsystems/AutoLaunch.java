@@ -71,7 +71,7 @@ public class AutoLaunch {
 
     SmartDashboard.putNumber("Wanted Launch Angle", calcLaunchAng);
 
-  if(Double.isNaN(launchAngle)){
+  if(launchAngle > 0.93 || launchAngle < 0.85){
 
 
   Intake.m_targetClosedLoopController.setSetpoint(0.89, SparkMax.ControlType.kPosition);
