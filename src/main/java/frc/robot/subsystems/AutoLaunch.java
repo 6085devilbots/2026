@@ -59,20 +59,9 @@ public class AutoLaunch {
 
 
 
-  if(Double.isNaN(launchAngle)){
-
-
-  SmartDashboard.putNumber("Cal Launch Angle", 0);
-  }else{
-
   SmartDashboard.putNumber("Cal Launch Angle", launchAngle);
 
-    
-  }
-
-  SmartDashboard.putNumber("Cal Launch Angle", launchAngle);
-
-  double testAngle = ( 1/360) * launchAngle;
+  double testAngle = ( .002777) * launchAngle;
   double testAngle2 = ((0.25) - testAngle);
 
    SmartDashboard.putNumber("TestAngle", testAngle);
@@ -82,8 +71,22 @@ public class AutoLaunch {
 
     SmartDashboard.putNumber("Wanted Launch Angle", calcLaunchAng);
 
-  //Intake.m_targetClosedLoopController.setSetpoint(calcLaunchAng, SparkMax.ControlType.kPosition);
-             
+  if(Double.isNaN(launchAngle)){
+
+
+  Intake.m_targetClosedLoopController.setSetpoint(0.89, SparkMax.ControlType.kPosition);
+    
+  }else{
+
+    
+  Intake.m_targetClosedLoopController.setSetpoint(calcLaunchAng, SparkMax.ControlType.kPosition);
+    
+
+  }
+
+  
+
+
   double actLaunchAng = Intake.m_targetEncoder2.getPosition();
 
   SmartDashboard.putNumber("Launch Ang Encoder", actLaunchAng);

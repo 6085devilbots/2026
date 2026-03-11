@@ -98,7 +98,7 @@ public static final class TargetingMotorSetup {
                         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
                         // These are example gains you may need to them for your own robot!
                         .pid(1, 0, 0)
-                        .outputRange(-1, 1)
+                        .outputRange(-0.1, 0.1)
                         .feedForward.kV(targetingVelocityFeedForward) ;
                         
             }
