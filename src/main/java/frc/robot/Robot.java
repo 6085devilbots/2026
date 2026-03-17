@@ -12,6 +12,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.AutoLaunchCommand;
 import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.LiveBottom;
@@ -39,6 +40,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 /*
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -553,17 +555,47 @@ if((stick2.getPOV() == Wire.leftDpad)) {
 
 //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+// - - - - - Climber Button - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+ if(stick2.getRawButton(Wire.xButton)) {
+    Climber.climbDownPos();
+    
+  }
 
 
+  if(stick2.getRawButton(Wire.yButton)) {
+    Climber.climbZeroPos();
+    
+  }
 
+
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
 // - - - - - -  - - - Automatic Rotation and Drive - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+
+ // RobotContainer.m_driverController.getRawButton(Wire.bButton).whileTrue(
+
+    //Launcher.runEnd(
+
+    //() -> Launcher.LauncherStop(),
+    //() -> AutoLaunch.EndLaunch()
+
+   // )
+
+//);
+
+
+
+
+
+
+
 if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {  
 
-  AutoLaunch.Launch(DriveSubsystem.Goal);
-  //AutoLaunch.Launch(DriveSubsystem.Goal).schedule();
+  //AutoLaunch.Launch(DriveSubsystem.Goal);
+  AutoLaunch.Launch(DriveSubsystem.Goal).schedule();
 
   //Intake.m_targetClosedLoopController.setSetpoint(90, SparkMax.ControlType.kPosition); // For PI Dropout Testing
 
@@ -571,11 +603,11 @@ if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {
 
   //Intake.m_targetClosedLoopController.setSetpoint(70, SparkMax.ControlType.kPosition); // For PI Dropout Testing
 
-  //AutoLaunch.Launch(DriveSubsystem.Goal).cancel();
+  AutoLaunch.Launch(DriveSubsystem.Goal).cancel();
 
   Launcher.rotOverRide = false;
   LiveBottom.LiveBottomStop();
-  Launcher.LauncherStop();       
+  //Launcher.LauncherStop();       
   Launcher.rotCmmd = 0 ;
   
 }
@@ -587,7 +619,7 @@ if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {
 
 // - - - - - -  - - - Shoot Across Field - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-if(RobotContainer.m_driverController.getRawButton(Wire.yButton)) {  
+/*if(RobotContainer.m_driverController.getRawButton(Wire.yButton)) {  
 
   AutoLaunch.Launch(DriveSubsystem.Right);
 
@@ -598,7 +630,7 @@ if(RobotContainer.m_driverController.getRawButton(Wire.yButton)) {
 //LiveBottom.LiveBottomStop();
 
 }
-
+*/
 
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -608,7 +640,7 @@ if(RobotContainer.m_driverController.getRawButton(Wire.yButton)) {
 // - - - - - -  - - - Shoot Across Field - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
-if(RobotContainer.m_driverController.getRawButton(Wire.aButton)) {  
+/*if(RobotContainer.m_driverController.getRawButton(Wire.aButton)) {  
 
   AutoLaunch.Launch(DriveSubsystem.Left);
 
@@ -618,7 +650,7 @@ if(RobotContainer.m_driverController.getRawButton(Wire.aButton)) {
 //Launcher.rotOverRide = false;
 //LiveBottom.LiveBottomStop();
 
-}
+} */
 
 }
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

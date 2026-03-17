@@ -53,7 +53,7 @@ public Climber(){
             
                     // - - - - - Intake Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             
-                     m_climberSpark = new SparkMax(18, MotorType.kBrushless);
+                     m_climberSpark = new SparkMax(2, MotorType.kBrushless);
                      m_climberEncoder = m_climberSpark.getEncoder();
                      m_climberClosedLoopController = m_climberSpark.getClosedLoopController();
                      m_climberSpark.configure(Configs.ClimberSetup.climberConfig, ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);

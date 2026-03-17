@@ -95,7 +95,7 @@ public static final class TargetingMotorSetup {
                         .reverseSoftLimit(70);
                 targetShooterConfig
                         .idleMode(IdleMode.kBrake)
-                        .smartCurrentLimit(4);
+                        .smartCurrentLimit(10);
                 targetShooterConfig.absoluteEncoder
                         .zeroOffset(0.1079167)
                         .positionConversionFactor(targetingFactor) // meters
@@ -360,7 +360,7 @@ public static final class liveBottomSetup {
                 liveBottomConfig
                         .idleMode(IdleMode.kCoast)
                         .inverted(true)
-                        .smartCurrentLimit(10);
+                        .smartCurrentLimit(15);
                 liveBottomConfig.encoder
                         .positionConversionFactor(liveBottomFactor) // meters
                         .velocityConversionFactor(liveBottomFactor); // meters per second

@@ -38,12 +38,12 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 public class AutoLaunch {
 
-  //public static Command Launch;
+  public static Command Launch;
 
-  public static void Launch(Pose2d tarGoal){
-  //public static Command Launch(Pose2d tarGoal){
+  //public static void Launch(Pose2d tarGoal){
+  public static Command Launch(Pose2d tarGoal){
 
-  //return Commands.run(() -> {
+  return Commands.run(() -> {
 
   var currentPos = DriveSubsystem.getPose2();
   var currentRot =  DriveSubsystem.canandgyro.getRotation2d(); 
@@ -100,7 +100,35 @@ public class AutoLaunch {
 
   }
 
-  }
+  });}
+
+
+
+
+ /*  public static void EndLaunch(){
+
+    Launcher.LauncherStop();
+    LiveBottom.LiveBottomStop();
+    Launcher.rotCmmd = 0;
+    Launcher.rotOverRide = false;
+
+  }*/
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
 }
 
 

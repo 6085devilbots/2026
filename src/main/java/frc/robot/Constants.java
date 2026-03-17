@@ -113,7 +113,7 @@ public final class Constants {
     public static final int kLauncherCan12Id = 12;
     public static final int kLauncherCan13Id = 13;
     public static final int kLiveBottomId = 7;
-    public static final int kClimberId = 18;
+    public static final int kClimberId = 2;
 
     
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -146,7 +146,7 @@ public final class Constants {
     public static double liftStart = 0;
     public static double climbDownLimit = -14;
     public static double climbZero_Pos = 0;
-    public static double climbDown_Pos = 5;
+    public static double climbDown_Pos = 5.5;
 
  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
