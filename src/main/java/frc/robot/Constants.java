@@ -11,14 +11,11 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-
 import com.pathplanner.lib.config.PIDConstants;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 
@@ -67,7 +64,7 @@ public final class Constants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
     public static double kMaxSpeedMetersPerSecond= 4.8;// = liveSpeed;//Was 4.8;
-    public static final double kMaxAngularSpeed = 0.1 * Math.PI; // radians per second  //2 
+    public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second  //2 
 
 
 
@@ -116,6 +113,7 @@ public final class Constants {
     public static final int kLauncherCan12Id = 12;
     public static final int kLauncherCan13Id = 13;
     public static final int kLiveBottomId = 7;
+    public static final int kClimberId = 18;
 
     
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -135,8 +133,9 @@ public final class Constants {
 
 
     // - - - - - - - - - - - - - - - - Lift Positions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    public static final double intakeDown_Pos = 0.2;  // Puts intake down  //-24
-    public static final double intakeUp_Pos = 0;         //0 
+    public static final double intakeDown_Pos = 90;  // Puts intake down  //-24
+     public static final double intakeMid_Pos = 135;
+    public static final double intakeUp_Pos = 178;         //0 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
@@ -146,6 +145,9 @@ public final class Constants {
  // - - - - - - - - - - - - - - - - Climb Position - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
     public static double liftStart = 0;
     public static double climbDownLimit = -14;
+    public static double climbZero_Pos = 0;
+    public static double climbDown_Pos = 5;
+
  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -168,8 +170,9 @@ public final class Constants {
 
     public static final double manualClimbSpeed = 1;
 
-    public static final double liveBottomInSpeed = 0.1;
-    public static final double liveBottomOutSpeed = -0.1;
+    public static final double liveBottomInSpeed = 0.5;
+    public static final double liveBottomOutSpeed = -0.5;
+
 
 
    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -194,7 +197,8 @@ public final class Constants {
     public static double initialHeight = .395;
     public static double real90 = (1 / 360) * 90;
     public static double startAngle = 0.89;// 0.890 to 0.855
-    public static double maxRotError = 4;
+    public static double maxRotError = 5;
+    public static double launchAngError = 1;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

@@ -8,7 +8,6 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.util.PathPlannerLogging;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -186,8 +185,9 @@ public class SwerveSubsystem extends SubsystemBase {
 
     public void setTargetState(SwerveModuleState targetState) {
       // Optimize the state
-      currentState = SwerveModuleState.optimize(targetState, currentState.angle);
-
+      //currentState = SwerveModuleState.optimize(targetState, currentState.angle);
+      targetState.optimize(currentState.angle);
+      currentState = targetState;
       currentPosition = new SwerveModulePosition(currentPosition.distanceMeters + (currentState.speedMetersPerSecond * 0.02), currentState.angle);
     }
   }

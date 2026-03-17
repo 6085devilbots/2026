@@ -12,7 +12,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import com.reduxrobotics.sensors.canandgyro.*;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
@@ -20,32 +21,27 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import static edu.wpi.first.units.Units.Rotation;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
-import com.reduxrobotics.sensors.canandgyro.*;
-
-import frc.robot.Constants;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Wire;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.geometry.Transform2d;
-import edu.wpi.first.math.numbers.*;
-
-import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.PathPlannerLogging;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+/*
+import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
+import frc.robot.Wire;
+import static edu.wpi.first.units.Units.Rotation;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.numbers.*;
+import com.pathplanner.lib.path.PathPlannerPath;
+*/
 
 // Add other necessary imports as needed
 
@@ -275,8 +271,8 @@ public class DriveSubsystem extends SubsystemBase {
 // - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   public static Pose2d blueHub = new Pose2d(
-    4.035, // X position in meters  
-    4.623,  // Y position in meters   15.167ft
+    4.623, // X position in meters  4.035
+    4.035,  // Y position in meters   4.623
     Rotation2d.fromDegrees(0) // Angle in degrees
 );
 
@@ -292,8 +288,6 @@ public class DriveSubsystem extends SubsystemBase {
 
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-
-
 // - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   public static Pose2d leftField = new Pose2d(
@@ -303,10 +297,6 @@ public class DriveSubsystem extends SubsystemBase {
 );
 
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-
-
-
 
 // - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -318,9 +308,35 @@ public class DriveSubsystem extends SubsystemBase {
 
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+// - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+  public static Pose2d Goal = new Pose2d(
+    4.035, // X position in meters  
+    4.623,  // Y position in meters  
+    Rotation2d.fromDegrees(0) // Angle in degrees
+);
 
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+// - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  public static Pose2d Left = new Pose2d(
+    4.035, // X position in meters  
+    4.623,  // Y position in meters   
+    Rotation2d.fromDegrees(0) // Angle in degrees
+);
+
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+// - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  public static Pose2d Right = new Pose2d(
+    4.035, // X position in meters  
+    4.623,  // Y position in meters   
+    Rotation2d.fromDegrees(0) // Angle in degrees
+);
+
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
 
@@ -336,8 +352,6 @@ public class DriveSubsystem extends SubsystemBase {
       
   };
 }
-
-
 
 
   public ChassisSpeeds getSpeeds() {
@@ -427,19 +441,9 @@ public class DriveSubsystem extends SubsystemBase {
   public static void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
     // Convert the commanded speeds into the correct units for the drivetrain0
 
-    double rot2;     // Creates second rotation variable to lock out drive code from resetting rot and not using rotCmmd
-
-    if(Launcher.rotOverRide){
-      rot2 = Launcher.rotCmmd;  // If rot overide is true then rotation is told to be our rotation needed to point at the hub
-
-    }else{
-      rot2 = rot;  // Says if rotation Override isn't true then rot2 should be the same as the roation variable originally was so robot drive as usual 
-
-    }
-
     double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond; // changed from negative to positive
     double ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond; // changed from negative to positive
-    double rotDelivered = rot2 * DriveConstants.kMaxAngularSpeed;               // changed from negative to positive
+    double rotDelivered = rot * DriveConstants.kMaxAngularSpeed;               // changed from negative to positive
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative

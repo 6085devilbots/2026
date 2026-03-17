@@ -4,66 +4,63 @@
 
 package frc.robot;
 
-import com.revrobotics.AbsoluteEncoder;
-
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.AutoLaunchCommand;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveSubsystem;
-//import frc.robot.subsystems.OLDPoseEstimatorSubsystem;
 import frc.robot.subsystems.Launcher;
-//import frc.robot.subsystems.LiveBottom;
-import frc.robot.subsystems.ProjectileTrajectory;
+import frc.robot.subsystems.LiveBottom;
 import frc.robot.subsystems.AutoLaunch;
-
-import java.security.KeyPair;
-import java.util.List;
+import edu.wpi.first.wpilibj.Timer;
+//import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.Optional;
-
 import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.targeting.PhotonTrackedTarget;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.reduxrobotics.sensors.canandgyro.Canandgyro;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.estimator.PoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
-
+import edu.wpi.first.net.WebServer;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+/*
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import frc.robot.Constants.AutoConstants;
+import frc.robot.subsystems.ProjectileTrajectory;
+import java.security.KeyPair;
+import java.util.List;
+import java.util.Optional;
+import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonTrackedTarget;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.reduxrobotics.sensors.canandgyro.Canandgyro;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.estimator.PoseEstimator;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.net.WebServer;
-import edu.wpi.first.wpilibj.DataLogManager;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.Joystick;
+
 import frc.robot.Constants.OIConstants;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -71,26 +68,17 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-
-
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
-
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
-
 import edu.wpi.first.cameraserver.CameraServer;
-
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
@@ -105,7 +93,6 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import java.util.List;
 import java.util.Optional;
 import org.photonvision.EstimatedRobotPose;
@@ -116,21 +103,17 @@ import org.photonvision.simulation.PhotonCameraSim;
 import org.photonvision.simulation.SimCameraProperties;
 import org.photonvision.simulation.VisionSystemSim;
 import org.photonvision.targeting.PhotonTrackedTarget;
-
- 
+import com.revrobotics.AbsoluteEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+*/
 
 
-
-
-
-                          // TIMED ROBOT STARTS
-
-
-
+// TIMED ROBOT STARTS
 
 public class Robot extends TimedRobot { 
 
+  public static String AlliColor = "Green"; 
+  public static Boolean aDone = false;
   private Vision vision;
   private DriveSubsystem drivetrain;
 
@@ -306,7 +289,7 @@ public static double alliTest = 0;
 
 // - - - - - SMART DASHBOARD OUTPUTS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-    SmartDashboard.putNumber("camYSpeed", Camera.camYSpeed);
+    
     SmartDashboard.putNumber("CamRotSpeed", Camera.camRotSpeed);
     SmartDashboard.putNumber("Turn Ang", DriveSubsystem.canandgyro.getYaw() * (360) );
 
@@ -316,7 +299,7 @@ public static double alliTest = 0;
     SmartDashboard.putNumber("RR Encoder", DriveSubsystem.m_rearRight.readEncoders());
 
     SmartDashboard.putNumber("Intake Lift Position", Intake.intakeLiftPosition());
-    SmartDashboard.putNumber("Target Position", Intake.targetPosition());
+    SmartDashboard.putNumber("Target Position", Launcher.targetPosition());
 
     //SmartDashboard.putNumber("LeftLaunch Current", Launcher.m_launcherSpark13.getOutputCurrent());
     //SmartDashboard.putNumber("RightLaunch Current", Launcher.m_launcherSpark12.getOutputCurrent());
@@ -445,8 +428,10 @@ public static double alliTest = 0;
     SmartDashboard.putNumber("RR Encoder", DriveSubsystem.m_rearRight.readEncoders());
 
     SmartDashboard.putNumber("Intake Lift Position", Intake.intakeLiftPosition());
-    double test = Intake.m_targetEncoder2.getPosition();
+    double test = Launcher.m_targetEncoder2.getPosition();
     SmartDashboard.putNumber("Target Position", test);
+
+    
    
     SmartDashboard.putNumber("Drive Speed", DriveConstants.kMaxSpeedMetersPerSecond);
 
@@ -466,64 +451,29 @@ public static double alliTest = 0;
     //SmartDashboard.putNumber("leftXstick1", stick1.getRawAxis(Wire.leftStickX));
     //SmartDashboard.putNumber("rightXstick1", stick1.getRawAxis(Wire.rightStickX));
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    //SmartDashboard.putNumber("Left Motor Speed", Launcher.m_launcherEncoder13.getVelocity());
-    //SmartDashboard.putNumber("Right Motor Speed", Launcher.m_launcherEncoder12.getVelocity());
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    SmartDashboard.putBoolean("Rotation Overide", Launcher.rotOverRide);
+    SmartDashboard.putNumber("Left Motor Speed", Launcher.m_launcherEncoder13.getVelocity());
+    SmartDashboard.putNumber("Right Motor Speed", Launcher.m_launcherEncoder12.getVelocity());
 
 
 
-
-
- /*if(Arm.ArmPosition() > DriveConstants.armLift_1 ){
-DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.lowSpeed;
- }else if(stick2.getRawButton(Wire.lBumper)){
-DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.madMax;
- }else if(Arm.ClimbPosition() < -5){
-  DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.lowSpeed;
- }else{
-DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
- }
- */
-
-
-
-
-
-
-
-
-
-
-  // - - - - - - - - Intake Buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+ // - - - - - - - - Intake Buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
  
-                       // - - - - - - - ZERO INTAKE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - -
+ // - - - - - - - INTAKE OUT - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - -
 
- 
- 
-  /*if(RobotContainer.m_driverController.getRawButton(Wire.aButton)) {
+  if(RobotContainer.m_driverController.getRawButton(Wire.aButton)) {
     Intake.IntakeOut();
     
   }
 
-*/
-
-
-
-                   // - - - - - - - PUT INTAKE DOWN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - 
+ // - - - - - - - INTAKE IN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - 
   
-  /*if(RobotContainer.m_driverController.getRawButton(Wire.yButton)) {  
+  if(RobotContainer.m_driverController.getRawButton(Wire.yButton)) {  
     Intake.IntakeIn();
  }
-*/
 
-                  
-
-
-
-                  // - - - - - - - INTAKE IN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - 
+// - - - - - - - ZERO INTAKE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - 
 
  if((RobotContainer.m_driverController.getPOV() == Wire.upDpad)) {
   Intake.intakeUpPos();
@@ -531,85 +481,73 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-
-
-                  // - - - - - - - INTAKE OUT - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - 
+// - - - - - - - PUT INTAKE DOWN - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - 
 
  if((RobotContainer.m_driverController.getPOV() == Wire.downDpad)) {
   Intake.intakeDownPos();
 }
 
- 
+// - - - - - - - PUT INTAKE MID - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - 
+
+if((RobotContainer.m_driverController.getPOV() == Wire.leftDpad)) {
+  Intake.intakeMidPos();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
-                 // - - - - - - - STOP INTAKE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - 
-
+// - - - - - - - STOP INTAKE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - 
 
  if(RobotContainer.m_driverController.getRawButton(Wire.xButton)) {  
+
   Intake.IntakeStop(); 
+
  }
 
 
 //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-
-
-
 
 
 
 
 //- - - - - - - - Launcher Buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-                    // - - - - - Launch In - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - Launch In - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  if((stick2.getPOV() == Wire.downDpad)) {
-  Intake.LauncherIn(); 
- }
+if((stick2.getPOV() == Wire.downDpad)) {
+  Launcher.LauncherIn(); 
+}
 
+// - - - - - Launch Out - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+if((stick2.getPOV() == Wire.upDpad)) {
+  Launcher.LauncherOut();
+}
 
+// - - - - - Launch Stop - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-                    // - - - - - Launch Out - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-
- if((stick2.getPOV() == Wire.upDpad)) {
-  Intake.LauncherOut();
- }
-
-
-                    // - - - - - Launch Stop - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
- if((stick2.getPOV() == Wire.leftDpad)) {
-  Intake.LauncherStop(); 
- }
-             
-
-
+if((stick2.getPOV() == Wire.leftDpad)) {
+  Launcher.LauncherStop(); 
+}
+            
 //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
 
 
 
 
 //- - - - - - - - Targeting Buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-                    // - - - - - Target Angle Increase - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+// - - - - - Target Angle Increase - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
  if(stick2.getRawButton(Wire.aButton)) {
-    Intake.TargetIncrease();
+    Launcher.TargetIncrease();
     
   }
 
-                    // - - - - - Target Angle Decrease - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+// - - - - - Target Angle Decrease - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
  if(stick2.getRawButton(Wire.bButton)) {
-    Intake.TargetDecrease();
+    Launcher.TargetDecrease();
     
   }
 
@@ -622,22 +560,24 @@ DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.highSpeed;
 
 // - - - - - -  - - - Automatic Rotation and Drive - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {  
 
+  AutoLaunch.Launch(DriveSubsystem.Goal);
+  //AutoLaunch.Launch(DriveSubsystem.Goal).schedule();
 
-PhotonPipelineResult result1 = Vision.Cam_1.getLatestResult();
-PhotonPipelineResult result2 = Vision.Cam_2.getLatestResult();
-
-if(RobotContainer.m_driverController.getRawButton(Wire.bButton) && ((result1.hasTargets()) || (result2.hasTargets()))) {  
-
-  AutoLaunch.Launch(DriveSubsystem.redHub);
-
+  //Intake.m_targetClosedLoopController.setSetpoint(90, SparkMax.ControlType.kPosition); // For PI Dropout Testing
 
 }else{
 
-Launcher.rotOverRide = false;
-//LiveBottom.LiveBottomStop();
-Intake.LauncherStop();        // TEMPORARY FIX
+  //Intake.m_targetClosedLoopController.setSetpoint(70, SparkMax.ControlType.kPosition); // For PI Dropout Testing
 
+  //AutoLaunch.Launch(DriveSubsystem.Goal).cancel();
+
+  Launcher.rotOverRide = false;
+  LiveBottom.LiveBottomStop();
+  Launcher.LauncherStop();       
+  Launcher.rotCmmd = 0 ;
+  
 }
 
 
@@ -647,14 +587,14 @@ Intake.LauncherStop();        // TEMPORARY FIX
 
 // - - - - - -  - - - Shoot Across Field - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-if(RobotContainer.m_driverController.getRawButton(Wire.yButton) && ((result1.hasTargets()) || (result2.hasTargets()))) {  
+if(RobotContainer.m_driverController.getRawButton(Wire.yButton)) {  
 
-  AutoLaunch.Launch(DriveSubsystem.rightField);
+  AutoLaunch.Launch(DriveSubsystem.Right);
 
 
 }else{
 
-Launcher.rotOverRide = false;
+//Launcher.rotOverRide = false;
 //LiveBottom.LiveBottomStop();
 
 }
@@ -668,151 +608,20 @@ Launcher.rotOverRide = false;
 // - - - - - -  - - - Shoot Across Field - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
-if(RobotContainer.m_driverController.getRawButton(Wire.aButton) && ((result1.hasTargets()) || (result2.hasTargets()))) {  
+if(RobotContainer.m_driverController.getRawButton(Wire.aButton)) {  
 
-  AutoLaunch.Launch(DriveSubsystem.leftField);
+  AutoLaunch.Launch(DriveSubsystem.Left);
 
 
 }else{
 
-Launcher.rotOverRide = false;
+//Launcher.rotOverRide = false;
 //LiveBottom.LiveBottomStop();
 
 }
 
-
-
+}
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-
-
-
-
-
-// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-/*  if((!fIntakeSwitchStat && ampLoadSwitchStat)) {
-  
-  intakeOutActive = true;
-}
-
- if(intakeOutActive) {
-  Intake.IntakeOut();
-  intakeSwitchTimer.start();
-}
-
- if((intakeOutTimer.get() >= DriveConstants.intakeOutTimeLimit) || (!ampLoadSwitchStat)){
-  Intake.IntakeStop();
-  intakeOutActive = false;
-  intakeSwitchTimer.stop();
-  intakeSwitchTimer.reset();
-  
-  
-}
-*/
-
-
-
-
-
-
-
-
-// - - - - - - - Camera Buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
-
-// 2-10-26 Date changed 
-
-   /*if((stick2.getRawButton(Wire.yButton))) {
-   Camera.getRobotPose();
-   yLatch = true ;
-  }else if (!stick2.getRawButton(Wire.yButton) && (yLatch)) {
-    //DriveSubsystem.drive(0, 0, 0, true);
-    yLatch = false;
-   }
-
-
-
-// 2-10-26 Date changed 
-
-  /* 
-   if((stick2.getRawButton(Wire.aButton))) {
-    Camera.getRobotRot();
-    rotateLatch = true ;
-   }else if (!stick2.getRawButton(Wire.aButton) && (rotateLatch)) {
-     rotateLatch = false;
-   }
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-*/
-
-
-
-// - - - - - - - Climb Buttons - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-    /*lLiftTemp = -(stick2.getRawAxis(Wire.rightStickY));
-   if(lLiftTemp > 0.5){
-     lift_Position = lift_Position + DriveConstants.manualClimbSpeed;
-     DriveConstants.liftStart = lift_Position;
-     Arm.Climb();
-   }
-   else if (lLiftTemp < - 0.5){
-     lift_Position = lift_Position - (DriveConstants.manualClimbSpeed);
-     DriveConstants.liftStart = lift_Position;
-     Arm.Climb();
-   }
-*/
-
-  /*      lLiftTemp = -(stick2.getRawAxis(Wire.rightStickY));
-   if(lLiftTemp > 0.5){
-     lift_Position = lift_Position + DriveConstants.manualClimbSpeed;
-     DriveConstants.liftStart = lift_Position;
-     Intake.Climb();
-   }
-   else if (lLiftTemp < - 0.5){
-     lift_Position = lift_Position - (DriveConstants.manualClimbSpeed);
-     DriveConstants.liftStart = lift_Position;
-     Intake.Climb();
-   }
-
-*/
-  
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-
-// - - - - - - - Climb Auto Down - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
-
-
-
-/*if((stick2.getRawButton(Wire.xButton))) {
-  climbButtonPressed = true;
-  
-  }
-*/
-
- /*  if(climbButtonPressed == true){
-    lift_Position = DriveConstants.climbDownLimit;
-    DriveConstants.liftStart = lift_Position;
-    Intake.Climb();
-    climbButtonPressed = false;
-   
-
-  }
-
-*/
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-
-}
-
-
-
-
 
 
 
@@ -841,6 +650,26 @@ Launcher.rotOverRide = false;
   @Override
   public void autonomousInit() {
     
+    Optional<Alliance> allianceColor = DriverStation.getAlliance();
+
+    if (allianceColor.isPresent()) { 
+      aDone = true;
+      if (allianceColor.get() == Alliance.Red) {
+        System.out.println("On Red Alliance");
+        DriveSubsystem.Goal = AllianceUtils.allianceFlip(DriveSubsystem.blueHub);
+        DriveSubsystem.Left = AllianceUtils.allianceFlip(DriveSubsystem.leftField);
+        DriveSubsystem.Right = AllianceUtils.allianceFlip(DriveSubsystem.rightField);
+        AlliColor = "Red";
+        SmartDashboard.putString("Alliance Color", AlliColor);
+      } else if (allianceColor.get() == Alliance.Blue) {
+        System.out.println("On Blue Alliance");
+        AlliColor = "Blue";
+        SmartDashboard.putString("Alliance Color", AlliColor);
+      }
+    } else {
+      System.out.println("Alliance color not available");
+    }
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -912,6 +741,25 @@ Launcher.rotOverRide = false;
 
   @Override
   public void teleopInit() {
+    Optional<Alliance> allianceColor = DriverStation.getAlliance();
+
+    if (allianceColor.isPresent() && !aDone) {
+      if (allianceColor.get() == Alliance.Red) {
+        System.out.println("On Red Alliance");
+        DriveSubsystem.Goal = AllianceUtils.allianceFlip(DriveSubsystem.blueHub);
+        DriveSubsystem.Left = AllianceUtils.allianceFlip(DriveSubsystem.leftField);
+        DriveSubsystem.Right = AllianceUtils.allianceFlip(DriveSubsystem.rightField);
+        AlliColor = "Red";
+        SmartDashboard.putString("Alliance Color", AlliColor);
+      } else if (allianceColor.get() == Alliance.Blue) {
+        System.out.println("On Blue Alliance");
+        AlliColor = "Blue";
+        SmartDashboard.putString("Alliance Color", AlliColor);
+      }
+    } else {
+      System.out.println("Alliance color not available");
+    }
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

@@ -1,30 +1,24 @@
 package frc.robot.subsystems;
 
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+/*/
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-
 import frc.robot.Configs;
-
 import frc.robot.Constants.DriveConstants;
-
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.AbsoluteEncoder;
-
-
+*/
 
 public class ProjectileTrajectory {
 
         public static double avgLaunchVelocity(){
-            double rVelocity = Intake.m_launcherEncoder12.getVelocity();
-            double lVelocity = Intake.m_launcherEncoder13.getVelocity();
+            double rVelocity = Launcher.m_launcherEncoder12.getVelocity();
+            double lVelocity = Launcher.m_launcherEncoder13.getVelocity();
 
          return ((rVelocity + lVelocity) / 2);
         };

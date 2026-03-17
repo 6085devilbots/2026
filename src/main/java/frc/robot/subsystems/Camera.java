@@ -1,58 +1,52 @@
 package frc.robot.subsystems;
 
-import java.util.List;
-import java.util.Optional;
 
-import org.photonvision.EstimatedRobotPose;
+
+import frc.robot.Robot;
 import org.photonvision.PhotonCamera;
-import org.photonvision.common.networktables.PacketSubscriber;
-import org.photonvision.simulation.PhotonCameraSim;
-import org.photonvision.simulation.VisionSystemSim;
-import org.photonvision.targeting.PhotonPipelineResult;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.photonvision.targeting.PhotonTrackedTarget;
-import org.photonvision.targeting.TargetCorner;
-import org.photonvision.timesync.TimeSyncSingleton;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
-
-
+/*
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants;
-import frc.robot.Robot;
+import java.util.List;
+import java.util.Optional;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.DriveSubsystem;
-
+import org.photonvision.EstimatedRobotPose;
 import com.reduxrobotics.sensors.canandgyro.Canandgyro;
-
+import org.photonvision.common.networktables.PacketSubscriber;
+import org.photonvision.simulation.PhotonCameraSim;
+import org.photonvision.simulation.VisionSystemSim;
+import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.PhotonUtils;
-
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-
-
-import edu.wpi.first.math.controller.PIDController;
+import org.photonvision.targeting.TargetCorner;
+import org.photonvision.timesync.TimeSyncSingleton;
 import edu.wpi.first.math.controller.ProfiledPIDController;
-
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Joystick;
+*/
 
 public class Camera {
 

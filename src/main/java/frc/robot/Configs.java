@@ -77,28 +77,35 @@ public static final class ExtnedArmSetup {
 
 
 
-// - - - - - - - Rotate Wrist Motor Config - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// - - - - - - - Targeting Motor Config - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 public static final class TargetingMotorSetup {
         public static final SparkMaxConfig targetShooterConfig = new SparkMaxConfig();
 
         
-        static {
-                // Use module constants to calculate conversion factors and feed forward gain.
-                double targetingFactor = 1;
+        static  {     
+                     // Use module constants to calculate conversion factors and feed forward gain.
+                double targetingFactor = 360;
                 double targetingVelocityFeedForward = 0;
     
+                targetShooterConfig.softLimit
+                        .forwardSoftLimitEnabled(true)
+                        .forwardSoftLimit(90)
+                        .reverseSoftLimitEnabled(true)
+                        .reverseSoftLimit(70);
                 targetShooterConfig
                         .idleMode(IdleMode.kBrake)
                         .smartCurrentLimit(4);
                 targetShooterConfig.absoluteEncoder
+                        .zeroOffset(0.1079167)
                         .positionConversionFactor(targetingFactor) // meters
+                        .inverted(true)
                         .velocityConversionFactor(targetingFactor ); // meters per second
                 targetShooterConfig.closedLoop
                         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
                         // These are example gains you may need to them for your own robot!
-                        .pid(1, 0, 0)
-                        .outputRange(-0.1, 0.1)
+                        .pid(0.02, 0, 0.0005)
+                        .outputRange(-1, 1)
                         .feedForward.kV(targetingVelocityFeedForward) ;
                         
             }
@@ -107,6 +114,75 @@ public static final class TargetingMotorSetup {
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+public static final class intakeLiftMotorSetup2 {
+        public static final SparkMaxConfig intakeLiftConfig2 = new SparkMaxConfig();
+
+        
+        static  {     
+                     // Use module constants to calculate conversion factors and feed forward gain.
+                double intakeLiftFactor2 = 360;
+                double intakeLiftVelocityFeedForward2 = 0;
+    
+                intakeLiftConfig2.softLimit
+                        .forwardSoftLimitEnabled(true)
+                        .forwardSoftLimit(180)
+                        .reverseSoftLimitEnabled(true)
+                        .reverseSoftLimit(88);
+                intakeLiftConfig2
+                        .idleMode(IdleMode.kCoast)
+                        .smartCurrentLimit(4);
+                intakeLiftConfig2.absoluteEncoder
+                        .zeroOffset(0.02167)
+                        .positionConversionFactor(intakeLiftFactor2) // meters
+                        .velocityConversionFactor(intakeLiftFactor2 ); // meters per second
+                intakeLiftConfig2.closedLoop
+                        .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+                        // These are example gains you may need to them for your own robot!
+                        .pid(0.05, .000001, 0.01)
+                        .outputRange(-0.3, 0.45)
+                        .feedForward.kV(intakeLiftVelocityFeedForward2) ;
+                        
+            }
+        
+    }
+
+
+// - - - - - - - Intake Lift Motor Config - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+/*public static final class intakeLiftMotorSetup {
+        public static final SparkMaxConfig intakeLiftConfig = new SparkMaxConfig();
+
+        
+        static {
+                // Use module constants to calculate conversion factors and feed forward gain.
+                double intakeLiftFactor = 360;
+                double intakeLiftVelocityFeedForward = 1;
+
+                 intakeLiftConfig.softLimit
+                        .forwardSoftLimitEnabled(true)
+                        .forwardSoftLimit(90)
+                        .reverseSoftLimitEnabled(true)
+                        .reverseSoftLimit(178);
+                intakeLiftConfig
+                        .idleMode(IdleMode.kCoast)
+                        .smartCurrentLimit(4);
+                intakeLiftConfig.absoluteEncoder
+                        .zeroOffset(0.02167)
+                        .positionConversionFactor(360); // meters
+                        //.velocityConversionFactor(intakeLiftFactor ); // meters per second
+                intakeLiftConfig.closedLoop
+                        .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+                        // These are example gains you may need to them for your own robot!
+                        .pid(1, 0, 0)
+                        .outputRange(-0.1, 0.1)
+                        .feedForward.kV(intakeLiftVelocityFeedForward) ;
+                        
+            }
+        
+    }*/
+
 
 
 
@@ -171,7 +247,7 @@ public static final class launcherRightSetup {
                 launcherRightConfig.closedLoop
                         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
                         // These are example gains you may need to them for your own robot!
-                        .pid(.0004, 0, .00001)
+                        .pid(.001, 0, .00001)//0.0004
                          .outputRange(0, 1)
                         .feedForward.kV(launcherRightVelocityFeedForward) ;
                        
@@ -210,6 +286,7 @@ public static final class launcherLeftSetup {
                 launcherLeftConfig.encoder
                         .positionConversionFactor(launcherLeftFactor) // meters
                         .velocityConversionFactor(launcherLeftFactor); // meters per second
+                        
                 launcherLeftConfig.closedLoop
                         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
                         // These are example gains you may need to them for your own robot!
@@ -237,8 +314,8 @@ public static final class launcherLeftSetup {
 
 // - - - - - - - Climber Configuration - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-public static final class ClimbSetup {
-        public static final SparkMaxConfig ClimbConfig = new SparkMaxConfig();
+public static final class ClimberSetup {
+        public static final SparkMaxConfig climberConfig = new SparkMaxConfig();
 
         
         static {
@@ -246,13 +323,13 @@ public static final class ClimbSetup {
                 double climbFactor = 1;
                 double climbVelocityFeedForward = 1;
     
-                ClimbConfig
+                climberConfig
                         .idleMode(IdleMode.kBrake)
                         .smartCurrentLimit(100);
-                ClimbConfig.encoder
+                climberConfig.encoder
                         .positionConversionFactor(climbFactor) // meters
                         .velocityConversionFactor(climbFactor / 60.0); // meters per second
-                ClimbConfig.closedLoop
+                climberConfig.closedLoop
                         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
                         // These are example gains you may need to them for your own robot!
                         .pid(1, 0, 0)
@@ -278,20 +355,20 @@ public static final class liveBottomSetup {
         static {
                 // Use module constants to calculate conversion factors and feed forward gain.
                 double liveBottomFactor = 1;
-                double liveBottomVelocityFeedForward = 0.0034;
+                double liveBottomVelocityFeedForward = 0;
     
                 liveBottomConfig
                         .idleMode(IdleMode.kCoast)
                         .inverted(true)
-                        .smartCurrentLimit(40);
+                        .smartCurrentLimit(10);
                 liveBottomConfig.encoder
                         .positionConversionFactor(liveBottomFactor) // meters
                         .velocityConversionFactor(liveBottomFactor); // meters per second
                 liveBottomConfig.closedLoop
                         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
                         // These are example gains you may need to them for your own robot!
-                        .pid(.001, 0, .0001)
-                         .outputRange(0, 1)
+                        .pid(1, 0, 0)
+                         .outputRange(-1, 1)
                         .feedForward.kV(liveBottomVelocityFeedForward) ;
                        
             }
@@ -326,14 +403,14 @@ public static final class liveBottomSetup {
                                              // 2
             drivingConfig
                     .idleMode(IdleMode.kBrake)
-                    .smartCurrentLimit(50);
+                    .smartCurrentLimit(20);  // Was 50
             drivingConfig.encoder
                     .positionConversionFactor(drivingFactor) // meters
                     .velocityConversionFactor(drivingFactor / 60.0); // meters per second
             drivingConfig.closedLoop
                     .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
                     // These are example gains you may need to them for your own robot!
-                    .pid(0.04, 0, 0.1) //.04
+                    .pid(0.1, 0, 0.1) //.04
                      .outputRange(-1, 1)
                     .feedForward.kV(drivingVelocityFeedForward) ;
                     
