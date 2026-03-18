@@ -197,8 +197,9 @@ public final class Constants {
     public static double initialHeight = .395;
     public static double real90 = (1 / 360) * 90;
     public static double startAngle = 0.89;// 0.890 to 0.855
-    public static double maxRotError = 5;
+    public static double maxRotError = 2;
     public static double launchAngError = 1;
+    public static double rotError2 = 7;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

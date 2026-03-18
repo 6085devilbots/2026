@@ -41,6 +41,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 /*
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -108,12 +110,14 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import com.revrobotics.AbsoluteEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 */
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 // TIMED ROBOT STARTS
 
 public class Robot extends TimedRobot { 
 
+  
   public static String AlliColor = "Green"; 
   public static Boolean aDone = false;
   private Vision vision;
@@ -575,24 +579,13 @@ if((stick2.getPOV() == Wire.leftDpad)) {
 // - - - - - -  - - - Automatic Rotation and Drive - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
- // RobotContainer.m_driverController.getRawButton(Wire.bButton).whileTrue(
-
-    //Launcher.runEnd(
-
-    //() -> Launcher.LauncherStop(),
-    //() -> AutoLaunch.EndLaunch()
-
-   // )
-
-//);
+ 
 
 
 
 
 
-
-
-if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {  
+/*if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {  
 
   //AutoLaunch.Launch(DriveSubsystem.Goal);
   AutoLaunch.Launch(DriveSubsystem.Goal).schedule();
@@ -611,7 +604,7 @@ if(RobotContainer.m_driverController.getRawButton(Wire.bButton)) {
   Launcher.rotCmmd = 0 ;
   
 }
-
+*/
 
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

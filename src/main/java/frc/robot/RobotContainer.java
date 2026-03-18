@@ -12,10 +12,13 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.LiveBottom;
+import frc.robot.subsystems.AutoLaunch;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -52,6 +55,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 public class RobotContainer {
   // The robot's subsystems
   public static final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private static final AutoLaunch m_autoLaunch = new AutoLaunch();
   @SuppressWarnings("unused")
   private final Intake intake= new Intake();
 
@@ -63,8 +67,9 @@ public class RobotContainer {
   private final Launcher launcher= new Launcher();
   @SuppressWarnings("unused")
   private final Climber climber= new Climber();
+  
 
-
+  
   //------------------------------------------------
 
 
@@ -101,7 +106,7 @@ public class RobotContainer {
                 DriveSubsystem.drive(
                     -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
                     -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband), 
-                    MathUtil.applyDeadband(Launcher.rotCmmd, OIConstants.kDriveDeadband),
+                     MathUtil.applyDeadband(Launcher.rotCmmd, OIConstants.kDriveDeadband),
                     true);
             } else {
                 // False logic: Uses RightX
@@ -116,10 +121,15 @@ public class RobotContainer {
       )
     );
 
+
+
   }
 
    
 
+
+
+  
 
   public Command getAutonomousCommand() {
     
@@ -137,6 +147,21 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
+
+
+    new JoystickButton(m_driverController, Wire.bButton)
+    .whileTrue(m_autoLaunch.runEnd(
+        () -> m_autoLaunch.Launch(DriveSubsystem.Goal),
+        () -> m_autoLaunch.StopLaunch()
+
+        )
+        
+        );
+  
+
+
+
+
     new JoystickButton(m_driverController, Wire.rBumper)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),

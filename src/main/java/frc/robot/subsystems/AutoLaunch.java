@@ -35,20 +35,23 @@ import com.revrobotics.spark.SparkClosedLoopController;
 */
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class AutoLaunch {
+public class AutoLaunch extends SubsystemBase {
 
   public static Command Launch;
+  public static Command StopLaunch;
 
   //public static void Launch(Pose2d tarGoal){
-  public static Command Launch(Pose2d tarGoal){
+  public void Launch(Pose2d tarGoal){
 
-  return Commands.run(() -> {
+ // return Commands.run(() -> {
 
   var currentPos = DriveSubsystem.getPose2();
   var currentRot =  DriveSubsystem.canandgyro.getRotation2d(); 
-  double kP = 0.04; //P gain must be tuned
+  double kP = 0.03; //P gain must be tuned
   double rotError;
+  double rotError2;
   boolean conditionsMet = false;
 
   Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
@@ -80,6 +83,10 @@ public class AutoLaunch {
   double actLaunchAng = Launcher.targetPosition();
 
   rotError = targetYaw.minus(currentRot).getDegrees();
+  if (rotError > DriveConstants.rotError2) {
+    rotError = DriveConstants.rotError2;
+  }
+
   Launcher.rotCmmd = rotError * kP ;
 
   SmartDashboard.putNumber("Initial Launch Velocity", iniLaunchVel);
@@ -100,10 +107,30 @@ public class AutoLaunch {
 
   }
 
-  });}
+  };
+//}
+
+  
+public void StopLaunch(){
+
+  //return Commands.run(() -> {
+
+  //AutoLaunch.Launch(DriveSubsystem.Goal).cancel();
+
+  Launcher.rotOverRide = false;
+  LiveBottom.LiveBottomStop();
+  Launcher.LauncherStop();       
+  Launcher.rotCmmd = 0 ;
+  
+ }//)
+  //;}
 
 
 
+}
+
+
+  
 
  /*  public static void EndLaunch(){
 
@@ -118,18 +145,6 @@ public class AutoLaunch {
 
 
 
-
-
-
-
- 
-
-
-
-
-
-
-}
 
 
 // - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
