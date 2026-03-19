@@ -63,10 +63,6 @@ public class AutoLaunch extends SubsystemBase {
 
   if(result1.hasTargets() || result2.hasTargets()){
 
-
-  
-
-
   Launcher.rotOverRide = true;
 
  
@@ -83,9 +79,9 @@ public class AutoLaunch extends SubsystemBase {
   double actLaunchAng = Launcher.targetPosition();
 
   rotError = targetYaw.minus(currentRot).getDegrees();
-  if (rotError > DriveConstants.rotError2) {
+  /*if (rotError > DriveConstants.rotError2) {
     rotError = DriveConstants.rotError2;
-  }
+  } */
 
   Launcher.rotCmmd = rotError * kP ;
 

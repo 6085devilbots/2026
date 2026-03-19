@@ -146,7 +146,7 @@ public final class Constants {
     public static double liftStart = 0;
     public static double climbDownLimit = -14;
     public static double climbZero_Pos = 0;
-    public static double climbDown_Pos = 5.5;
+    public static double climbDown_Pos = 45;
 
  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -170,8 +170,8 @@ public final class Constants {
 
     public static final double manualClimbSpeed = 1;
 
-    public static final double liveBottomInSpeed = 0.5;
-    public static final double liveBottomOutSpeed = -0.5;
+    public static final double liveBottomInSpeed = 0.85;
+    public static final double liveBottomOutSpeed = -0.85;
 
 
 
@@ -199,7 +199,7 @@ public final class Constants {
     public static double startAngle = 0.89;// 0.890 to 0.855
     public static double maxRotError = 2;
     public static double launchAngError = 1;
-    public static double rotError2 = 7;
+    public static double rotError2 = 5;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
