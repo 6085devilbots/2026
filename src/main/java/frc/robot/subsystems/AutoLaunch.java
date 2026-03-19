@@ -51,7 +51,7 @@ public class AutoLaunch extends SubsystemBase {
   var currentRot =  DriveSubsystem.canandgyro.getRotation2d(); 
   double kP = 0.03; //P gain must be tuned
   double rotError;
-  double rotError2;
+  //double rotError2;
   boolean conditionsMet = false;
 
   Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
@@ -79,9 +79,9 @@ public class AutoLaunch extends SubsystemBase {
   double actLaunchAng = Launcher.targetPosition();
 
   rotError = targetYaw.minus(currentRot).getDegrees();
-  /*if (rotError > DriveConstants.rotError2) {
+  if (rotError > DriveConstants.rotError2) {
     rotError = DriveConstants.rotError2;
-  } */
+  } 
 
   Launcher.rotCmmd = rotError * kP ;
 
