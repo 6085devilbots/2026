@@ -311,7 +311,7 @@ public class DriveSubsystem extends SubsystemBase {
 // - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   public static Pose2d Goal = new Pose2d(
-    4.035, // X position in meters  
+    3, // X position in meters  
     4.623,  // Y position in meters  
     Rotation2d.fromDegrees(0) // Angle in degrees
 );

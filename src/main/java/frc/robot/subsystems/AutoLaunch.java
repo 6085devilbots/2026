@@ -80,15 +80,13 @@ public class AutoLaunch extends SubsystemBase {
   double actLaunchAng = Launcher.targetPosition();
 
   rotError = targetYaw.getDegrees();
+
+
   if (rotError > DriveConstants.rotError2) {
     rotError = DriveConstants.rotError2;
   } 
 
-     if(Launcher.rotCmmd > 0.05){
-
-       kP = 0.072;
-
-    }
+     
 
 
   Launcher.rotCmmd = rotError * kP ;
@@ -99,7 +97,8 @@ public class AutoLaunch extends SubsystemBase {
   SmartDashboard.putNumber("TargetYaw", targetYaw.getDegrees());
   SmartDashboard.putNumber("RotCmmd", Launcher.rotCmmd);
   SmartDashboard.putNumber("rotError", rotError);
-  SmartDashboard.putNumber("rotError", rotError);
+  SmartDashboard.putNumber("Distance To Target", distanceToTarget);
+ 
 
   
   
@@ -108,7 +107,7 @@ public class AutoLaunch extends SubsystemBase {
     if((actLaunchAng < (launchAngle + DriveConstants.launchAngError)) && (actLaunchAng > (launchAngle - DriveConstants.launchAngError)) && (rotError < (DriveConstants.maxRotError)) && (rotError > -(DriveConstants.maxRotError))){
 
       LiveBottom.LiveBottomIn();  // Doesn't stop until B Button isn't pressed
-      SmartDashboard.putNumber("Distance To Target", distanceToTarget);
+      
 
     }
 

@@ -154,7 +154,7 @@ public class RobotContainer {
 
     new JoystickButton(Robot.stick2, Wire.bButton)
     .whileTrue(m_autoLaunch.runEnd(
-        () -> m_autoLaunch.Launch(DriveSubsystem.Goal),
+        () -> m_autoLaunch.Launch(DriveSubsystem.blueHub),
         () -> m_autoLaunch.StopLaunch()
 
         )
