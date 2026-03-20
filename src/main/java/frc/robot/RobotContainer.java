@@ -109,7 +109,7 @@ public class RobotContainer {
                 DriveSubsystem.drive(
                     -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
                     -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband), 
-                     MathUtil.applyDeadband(Launcher.rotCmmd, OIConstants.kDriveDeadband),
+                    MathUtil.applyDeadband(Launcher.rotCmmd, OIConstants.kDriveDeadband),
                     true);
             } else {
                 // False logic: Uses RightX
@@ -152,7 +152,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
 
-    new JoystickButton(m_driverController, Wire.bButton)
+    new JoystickButton(Robot.stick2, Wire.bButton)
     .whileTrue(m_autoLaunch.runEnd(
         () -> m_autoLaunch.Launch(DriveSubsystem.Goal),
         () -> m_autoLaunch.StopLaunch()

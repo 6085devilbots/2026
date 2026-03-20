@@ -49,10 +49,10 @@ public class AutoLaunch extends SubsystemBase {
 
   var currentPos = DriveSubsystem.getPose2();
   var currentRot =  DriveSubsystem.canandgyro.getRotation2d(); 
-  double kP = 0.03; //P gain must be tuned
+  double kP = 0.07615; //P gain must be tuned
   double rotError;
   //double rotError2;
-  boolean conditionsMet = false;
+ 
 
   Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
   Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
@@ -83,6 +83,13 @@ public class AutoLaunch extends SubsystemBase {
     rotError = DriveConstants.rotError2;
   } 
 
+     if(Launcher.rotCmmd > 0.05){
+
+       kP = 0.072;
+
+    }
+
+
   Launcher.rotCmmd = rotError * kP ;
 
   SmartDashboard.putNumber("Initial Launch Velocity", iniLaunchVel);
@@ -90,13 +97,17 @@ public class AutoLaunch extends SubsystemBase {
   SmartDashboard.putNumber("Cal Launch Angle", launchAngle);
   SmartDashboard.putNumber("TargetYaw", targetYaw.getDegrees());
   SmartDashboard.putNumber("RotCmmd", Launcher.rotCmmd);
-  SmartDashboard.putNumber("Distance To Target", distanceToTarget);
+  SmartDashboard.putNumber("rotError", rotError);
+  SmartDashboard.putNumber("rotError", rotError);
+
+  
+  
+  //SmartDashboard.putNumber("Distance To Target", distanceToTarget);
 
     if((actLaunchAng < (launchAngle + DriveConstants.launchAngError)) && (actLaunchAng > (launchAngle - DriveConstants.launchAngError)) && (rotError < (DriveConstants.maxRotError)) && (rotError > -(DriveConstants.maxRotError))){
 
       LiveBottom.LiveBottomIn();  // Doesn't stop until B Button isn't pressed
-      conditionsMet = true;
-      SmartDashboard.putBoolean("Conditions Met", conditionsMet);
+      SmartDashboard.putNumber("Distance To Target", distanceToTarget);
 
     }
 

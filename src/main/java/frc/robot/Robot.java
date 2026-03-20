@@ -120,7 +120,7 @@ public class Robot extends TimedRobot {
   
   public static String AlliColor = "Green"; 
   public static Boolean aDone = false;
-  private Vision vision;
+  public Vision vision;
   private DriveSubsystem drivetrain;
 
   public static double lLiftTemp;
@@ -506,7 +506,8 @@ if((RobotContainer.m_driverController.getPOV() == Wire.leftDpad)) {
 
  if(RobotContainer.m_driverController.getRawButton(Wire.xButton)) {  
 
-  Intake.IntakeStop(); 
+  Intake.IntakeStop();
+  
 
  }
 
@@ -545,17 +546,17 @@ if((stick2.getPOV() == Wire.leftDpad)) {
 
 // - - - - - Target Angle Increase - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
- if(stick2.getRawButton(Wire.aButton)) {
+ /*if(stick2.getRawButton(Wire.aButton)) {
     Launcher.TargetIncrease();
     
-  }
+  }*/
 
 // - - - - - Target Angle Decrease - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
- if(stick2.getRawButton(Wire.bButton)) {
+ /*if(stick2.getRawButton(Wire.bButton)) {
     Launcher.TargetDecrease();
     
-  }
+  }*/
 
 //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
