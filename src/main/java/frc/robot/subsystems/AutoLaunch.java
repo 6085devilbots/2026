@@ -48,6 +48,7 @@ public class AutoLaunch extends SubsystemBase {
  // return Commands.run(() -> {
 
   var currentPos = DriveSubsystem.getPose2();
+  var currentYaw = DriveSubsystem.canandgyro.getYaw();
   var currentRot =  DriveSubsystem.canandgyro.getRotation2d(); 
   double kP = 0.07615; //P gain must be tuned
   double rotError;
@@ -78,7 +79,7 @@ public class AutoLaunch extends SubsystemBase {
     
   double actLaunchAng = Launcher.targetPosition();
 
-  rotError = targetYaw.minus(currentRot).getDegrees();
+  rotError = targetYaw.getDegrees();
   if (rotError > DriveConstants.rotError2) {
     rotError = DriveConstants.rotError2;
   } 
