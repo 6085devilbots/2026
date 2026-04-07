@@ -69,11 +69,11 @@ public class Vision {
 
         AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
-        Transform3d robotToCam = new Transform3d(new Translation3d(0.0738124, -0.2698496, 0.4848728), new Rotation3d(0, .0698132, 0)); // x =
+        Transform3d robotToCam = new Transform3d(new Translation3d(0.0738124, -0.2698496, 0.4848728), new Rotation3d(0, .174533, 0)); // x =
                                                                                                                 // 3in
         // Transform3d robotToCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5),
         // new Rotation3d(0,0,180));
-        Transform3d robotToCam2 = new Transform3d(new Translation3d(0.0853186, 0.1681988, 0.4808728), new Rotation3d(0, .0698132, 3.14159));
+        Transform3d robotToCam2 = new Transform3d(new Translation3d(0.0853186, 0.1681988, 0.4808728), new Rotation3d(0, .174533, 3.14159));
 
         photonEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
                 robotToCam);
@@ -173,7 +173,7 @@ public class Vision {
         return visionEst;
     }
 
-    public Optional<EstimatedRobotPose> getEstimatedGlobalPose2() {
+  /*   public Optional<EstimatedRobotPose> getEstimatedGlobalPose2() {
         Optional<EstimatedRobotPose> visionEst2 = Optional.empty();
         for (var change : Cam_2.getAllUnreadResults()) { // for (var change : camera.getAllUnreadResults()) {
             SmartDashboard.putString("Vision", "gEgp");
@@ -182,7 +182,7 @@ public class Vision {
 
         }
         return visionEst2;
-    }
+    } */
 
     
     /**

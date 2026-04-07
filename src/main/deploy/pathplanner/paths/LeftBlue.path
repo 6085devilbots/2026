@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.0,
-        "y": 6.0
+        "x": 3.497943181818181,
+        "y": 5.251204545454545
       },
       "prevControl": null,
       "nextControl": {
-        "x": -0.247487373415291,
-        "y": 5.964644660940668
+        "x": 2.879534090909091,
+        "y": 5.302738636363637
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.0,
-        "y": 6.0
+        "x": 2.219897727272727,
+        "y": 5.5913295454545455
       },
       "prevControl": {
-        "x": 0.6921052631578943,
-        "y": 5.9878289473693735
+        "x": 2.8692272727272723,
+        "y": 5.302738636363637
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,18 +31,25 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "ShootGoalBlue",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 6.0,
+    "maxVelocity": 4.0,
     "maxAcceleration": 1.0,
-    "maxAngularVelocity": 540.0,
+    "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -45.85509739626673
   },
   "reversed": false,
   "folder": null,
@@ -50,5 +57,5 @@
     "velocity": 0,
     "rotation": 0.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

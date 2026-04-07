@@ -268,6 +268,15 @@ public class DriveSubsystem extends SubsystemBase {
 
 
 
+
+
+
+
+
+
+  
+
+
 // - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   public static Pose2d blueHub = new Pose2d(
@@ -281,7 +290,7 @@ public class DriveSubsystem extends SubsystemBase {
 // - - - - - - - Creates Object Red Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   public static Pose2d redHub = new Pose2d(
-    13.02219, // X position in meters 
+    11.9154, // X position in meters 
      4.035,  // Y position in meters   15.167ft
     Rotation2d.fromDegrees(0) // Angle in degrees
 );
@@ -290,9 +299,9 @@ public class DriveSubsystem extends SubsystemBase {
 
 // - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  public static Pose2d leftField = new Pose2d(
-    6.069, // X position in meters  
-    1,  // Y position in meters   15.167ft
+  public static Pose2d leftFieldBlue = new Pose2d(
+    3, // X position in meters  
+    6.069,  // Y position in meters   15.167ft
     Rotation2d.fromDegrees(0) // Angle in degrees
 );
 
@@ -300,13 +309,37 @@ public class DriveSubsystem extends SubsystemBase {
 
 // - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  public static Pose2d rightField = new Pose2d(
+  public static Pose2d rightFieldBlue = new Pose2d(
+    14, // X position in meters  
+    2,  // Y position in meters   15.167ft
+    Rotation2d.fromDegrees(0) // Angle in degrees
+);
+
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+// - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  public static Pose2d leftFieldRed = new Pose2d(
+    14, // X position in meters  
+    6,  // Y position in meters   15.167ft
+    Rotation2d.fromDegrees(0) // Angle in degrees
+);
+
+// - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+// - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  public static Pose2d rightFieldRed = new Pose2d(
     1, // X position in meters  
     2,  // Y position in meters   15.167ft
     Rotation2d.fromDegrees(0) // Angle in degrees
 );
 
 // - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
 
 // - - - - - - - Creates Object Blue Hub  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

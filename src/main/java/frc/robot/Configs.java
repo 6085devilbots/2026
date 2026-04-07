@@ -325,7 +325,7 @@ public static final class ClimberSetup {
     
                 climberConfig
                         .idleMode(IdleMode.kBrake)
-                        .smartCurrentLimit(100);
+                        .smartCurrentLimit(20);
                 climberConfig.encoder
                         .positionConversionFactor(climbFactor) // meters
                         .velocityConversionFactor(climbFactor / 60.0); // meters per second
@@ -333,7 +333,7 @@ public static final class ClimberSetup {
                         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
                         // These are example gains you may need to them for your own robot!
                         .pid(1, 0, 0)
-                         .outputRange(-0.3, 0.3)
+                         .outputRange(-1, 1)
                         .feedForward.kV(climbVelocityFeedForward) ;
                        
             }
@@ -403,7 +403,7 @@ public static final class liveBottomSetup {
                                              // 2
             drivingConfig
                     .idleMode(IdleMode.kBrake)
-                    .smartCurrentLimit(20);  // Was 50
+                    .smartCurrentLimit(35);  // Was 50
             drivingConfig.encoder
                     .positionConversionFactor(drivingFactor) // meters
                     .velocityConversionFactor(drivingFactor / 60.0); // meters per second
@@ -418,7 +418,7 @@ public static final class liveBottomSetup {
             turningConfig
                     .idleMode(IdleMode.kBrake)
                     .inverted(true)
-                    .smartCurrentLimit(20);
+                    .smartCurrentLimit(35);
             turningConfig.absoluteEncoder
                     // Invert the turning encoder, since the output shaft rotates in the opposite
                     // direction of the steering motor in the MAXSwerve Module.

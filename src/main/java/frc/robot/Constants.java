@@ -63,12 +63,12 @@ public final class Constants {
 */
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
-    public static double kMaxSpeedMetersPerSecond= 4.8;// = liveSpeed;//Was 4.8;
-    public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second  //2 
+    public static double kMaxSpeedMetersPerSecond = 7;// = liveSpeed;//Was 4.8;
+    public static double kMaxAngularSpeed = 3 * Math.PI; // radians per second  //2 
 
 
-
-
+    public static double kLaunchSpeed = 1;
+    
 
 
     //- - - - - - - - - - - - Chassis configuration - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -113,7 +113,7 @@ public final class Constants {
     public static final int kLauncherCan12Id = 12;
     public static final int kLauncherCan13Id = 13;
     public static final int kLiveBottomId = 7;
-    public static final int kClimberId = 2;
+    public static final int kClimberId = 17;
 
     
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -123,8 +123,9 @@ public final class Constants {
 
 
 // - - - - - - - - - - - - - - - - Targeting Positions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    public static final double tarIncreaseAng_Pos = -0.3;  
-    public static final double tarDecreaseAng_Pos = 0;         
+    public static final double tarIncreaseAng_Pos = 0;  
+    public static final double tarDecreaseAng_Pos = 0;      
+    public static final double manualTar_Pos = 85;      // 89 degrees
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
@@ -133,9 +134,9 @@ public final class Constants {
 
 
     // - - - - - - - - - - - - - - - - Lift Positions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    public static final double intakeDown_Pos = 90;  // Puts intake down  //-24
-     public static final double intakeMid_Pos = 135;
-    public static final double intakeUp_Pos = 178;         //0 
+    public static final double intakeDown_Pos = 95;  
+    public static final double intakeMid_Pos = 135;
+    public static final double intakeUp_Pos = 170;         
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
@@ -146,8 +147,7 @@ public final class Constants {
     public static double liftStart = 0;
     public static double climbDownLimit = -14;
     public static double climbZero_Pos = 0;
-    public static double climbDown_Pos = 45;
-
+    public static double climbUp_Pos = -400;
  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -162,16 +162,20 @@ public final class Constants {
 
 
    // - - - - - - - - - - - - - - - - Speeds - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
-    public static final double intakeInSpeed = -0.45;
-    public static final double intakeOutSpeed = 0.45;
+    public static final double intakeInSpeed = -0.73;
+    public static final double intakeOutSpeed = 0.73;
 
     public static final double launcherInSpeed = 50;
     public static final double launcherOutSpeed = 1300;
+    public static final double launcherDefaultSpeed = 400;
 
     public static final double manualClimbSpeed = 1;
 
-    public static final double liveBottomInSpeed = 0.85;
-    public static final double liveBottomOutSpeed = -0.85;
+    public static final double liveBottomInSpeed = 1;
+    public static final double liveBottomOutSpeed = -0.75;
+
+    
+  
 
 
 
@@ -188,6 +192,8 @@ public final class Constants {
 
     public static final double autoOutTimeLimit = 2;
     public static final double autoDriveTimeLimit = 6;
+    public static final double autoLaunchSpinUpLimit = 6;
+    public static final double autoSpinUpTimeLimit = 5;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

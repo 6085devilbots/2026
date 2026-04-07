@@ -32,6 +32,8 @@ public class Launcher {
         public static Command LauncherIn;
         public static Command LauncherOut;
         public static Command LauncherStop;
+        
+        
     
     public Launcher(){
     
@@ -78,6 +80,14 @@ public class Launcher {
             //m_launcherClosedLoopController13.setInverted(true);
     
         }
+
+        public static void LauncherDefault(){
+    
+            m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherDefaultSpeed, SparkMax.ControlType.kVelocity);
+            m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherDefaultSpeed, SparkMax.ControlType.kVelocity);
+            //m_launcherClosedLoopController13.setInverted(true);
+    
+        }
     
         public static void LauncherStop(){
     
@@ -107,6 +117,12 @@ public class Launcher {
     public static void TargetDecrease(){
 
         m_targetClosedLoopController.setSetpoint(DriveConstants.tarDecreaseAng_Pos, SparkMax.ControlType.kPosition);
+        
+    }
+
+    public static void ManualTarget(double targetDeg){
+
+        m_targetClosedLoopController.setSetpoint(targetDeg, SparkMax.ControlType.kPosition);
         
     }
     

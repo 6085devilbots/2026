@@ -5,23 +5,42 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Launcher;
 import frc.robot.subsystems.LiveBottom;
 import frc.robot.subsystems.AutoLaunch;
+import frc.robot.subsystems.AutoLaunchCommand;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+
+import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.controllers.PathFollowingController;
+
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 /*
 import edu.wpi.first.math.controller.PIDController;
@@ -46,6 +65,7 @@ import java.util.List;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import com.pathplanner.lib.auto.NamedCommands;
 */
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -54,27 +74,38 @@ import com.pathplanner.lib.auto.NamedCommands;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
   // The robot's subsystems
+ 
   public static final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private static final AutoLaunch m_autoLaunch = new AutoLaunch();
+  public static final AutoLaunch m_autoLaunch = new AutoLaunch();
   @SuppressWarnings("unused")
-  private final Intake intake= new Intake();
+  public static final Intake m_intake = new Intake();
 
   //------------------------------------------------
   // Added Offline 3-14-26 in a attempt to get Launcher.java and LiveBottom.java
   @SuppressWarnings("unused")
   private final LiveBottom liveBottom= new LiveBottom();
   @SuppressWarnings("unused")
-  private final Launcher launcher= new Launcher();
+  private final Launcher m_launcher= new Launcher();
   @SuppressWarnings("unused")
   private final Climber climber= new Climber();
   
+  
 
+  private final SendableChooser<Command> m_Chooser = new SendableChooser<>();
+
+ 
+  
+
+   
+
+   
   
   //------------------------------------------------
 
 
-  private final SendableChooser<Command> autoChooser;
+  private final SendableChooser<Command> autonChooser;
 
   
 
@@ -89,15 +120,42 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    //NamedCommands.registerCommands("Launch", m_autoLaunch.Launch(DriveSubsystem.Goal));
+    
+  //NamedCommands.registerCommand( "TurnToAngle", new TurnToAngle(45, m_robotDrive));
+
+
+  NamedCommands.registerCommand( "SpinUp",
+    m_launcher.LauncherOutCommand);
+
+  //NamedCommands.registerCommand( "LaunchSequenceBlue", getFullAutonBlue());
+
+   
+ 
 
     // Build an auto chooser. This will use Commands.none() as the default option.
-    autoChooser = AutoBuilder.buildAutoChooser();
+ 
+  SmartDashboard.putData("Auto Mode", m_Chooser);
+
+ 
+  
+  autonChooser = AutoBuilder.buildAutoChooser();
+  SmartDashboard.putData("Auton Chooser", autonChooser);
+
+
+ 
+
+
+
+    
 
     // Another option that allows you to specify the default auto by its name
     // autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
+      
+
     
-    SmartDashboard.putData("Auto Chooser", autoChooser);
+
+  
+
     
     // Configure default commands
 
@@ -126,9 +184,120 @@ public class RobotContainer {
 
 
 
+
+
+  
+
   }
 
-   
+  
+
+
+
+
+
+
+public Command getFullAutonBlue(){
+      return Commands.sequence(
+
+      Commands.run(()->
+    m_autoLaunch.LaunchAuto(DriveSubsystem.blueHub),
+    m_autoLaunch
+    ) 
+      );
+}
+
+
+
+
+
+
+public Command getFullAutonRed(){
+      return Commands.sequence(
+
+      Commands.run(()->
+    m_autoLaunch.LaunchAuto(DriveSubsystem.redHub),
+    m_autoLaunch
+    ),
+
+    Commands.waitSeconds(12),
+
+    Commands.runOnce(()->
+       m_autoLaunch.StopLaunch(), m_autoLaunch)
+
+      );
+}
+
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+   /*public Command getFullAutonBlue(){
+      return Commands.sequence(
+
+      Commands.run(()->
+    m_autoLaunch.Launch(DriveSubsystem.blueHub),
+    m_autoLaunch
+    ),
+
+    m_robotDrive.run(()-> 
+       m_robotDrive.driveRobotRelative(new ChassisSpeeds(-0.4, 0, 0)))
+       .withTimeout(3.5),
+
+       Commands.runOnce(()-> {
+       m_robotDrive.driveRobotRelative(new ChassisSpeeds(0, 0, 0));
+       m_autoLaunch.StopLaunch();
+       }, m_robotDrive, m_autoLaunch)
+      );
+
+       }
+    
+*/
+
+
+/* 
+       public Command getFullAutonRed(){
+      return Commands.sequence(
+
+      Commands.run(()->
+    m_autoLaunch.Launch(DriveSubsystem.redHub),
+    m_autoLaunch
+    ),
+
+    m_robotDrive.run(()-> 
+       m_robotDrive.driveRobotRelative(new ChassisSpeeds(-0.4, 0, 0)))
+       .withTimeout(3.5),
+
+       Commands.runOnce(()-> {
+       m_robotDrive.driveRobotRelative(new ChassisSpeeds(0, 0, 0));
+       
+       }, m_robotDrive, m_autoLaunch)
+      );
+
+       }
+    
+    */
+
+
+   //public Command getAutonomousCommand() {
+
+   // return m_Chooser.getSelected();
+
+   //}
+
+   //public Command getAutonomousCommand() {
+
+    //return getFullAutonRed();
+
+//   }
 
 
 
@@ -136,7 +305,7 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     
-    return new PathPlannerAuto(autoChooser.getSelected());
+    return autonChooser.getSelected();
     
   }
 
@@ -152,7 +321,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
 
-    new JoystickButton(Robot.stick2, Wire.bButton)
+// - - - - - - - - - - - - Blue Launch - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+    new JoystickButton(Robot.stick2, Wire.yButton)
     .whileTrue(m_autoLaunch.runEnd(
         () -> m_autoLaunch.Launch(DriveSubsystem.blueHub),
         () -> m_autoLaunch.StopLaunch()
@@ -160,8 +332,73 @@ public class RobotContainer {
         )
         
         );
+
+        new JoystickButton(Robot.stick2, Wire.xButton)
+    .whileTrue(m_autoLaunch.runEnd(
+        () -> m_autoLaunch.Launch(DriveSubsystem.blueHub),
+        () -> m_autoLaunch.StopLaunch()
+
+        )
+        
+        );
+
+
+         new JoystickButton(Robot.stick2, Wire.bButton)
+    .whileTrue(m_autoLaunch.runEnd(
+        () -> m_autoLaunch.Launch(DriveSubsystem.blueHub),
+        () -> m_autoLaunch.StopLaunch()
+
+        )
+        
+        );
+
+
+       
+        
+  
   
 
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+
+// - - - - - - - - - - - - Red Launch - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+    new POVButton(Robot.stick2, Wire.upDpad) 
+    .whileTrue(m_autoLaunch.runEnd(
+        () -> m_autoLaunch.Launch(DriveSubsystem.redHub),
+        () -> m_autoLaunch.StopLaunch()
+
+        )
+        
+        );
+
+        new POVButton(Robot.stick2, Wire.leftDpad)
+    .whileTrue(m_autoLaunch.runEnd(
+        () -> m_autoLaunch.Launch(DriveSubsystem.leftFieldRed),
+        () -> m_autoLaunch.StopLaunch()
+
+        )
+        
+        );
+
+
+         new POVButton(Robot.stick2, Wire.rightDpad)
+    .whileTrue(m_autoLaunch.runEnd(
+        () -> m_autoLaunch.Launch(DriveSubsystem.rightFieldRed),
+        () -> m_autoLaunch.StopLaunch()
+
+        )
+        
+        );
+
+
+
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
 
@@ -171,6 +408,9 @@ public class RobotContainer {
             m_robotDrive));
 
   }
+
+
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

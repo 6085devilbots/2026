@@ -5,6 +5,7 @@ import com.revrobotics.spark.SparkMax;
 import frc.robot.Vision;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Robot;
+//import frc.robot.TurnToAngle;
 
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
@@ -39,6 +40,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class AutoLaunch extends SubsystemBase {
 
+public static final DriveSubsystem m_robotDrive = new DriveSubsystem();
+
+
   public static Command Launch;
   public static Command StopLaunch;
 
@@ -53,7 +57,11 @@ public class AutoLaunch extends SubsystemBase {
   double kP = 0.07615; //P gain must be tuned
   double rotError;
   //double rotError2;
+  boolean isFinished;
  
+  
+
+
 
   Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
   Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
@@ -70,6 +78,9 @@ public class AutoLaunch extends SubsystemBase {
   double distanceToTarget = PhotonUtils.getDistanceToPose(currentPos, tarGoal);
   Rotation2d targetYaw = PhotonUtils.getYawToPose(currentPos,tarGoal);
 
+  DriveConstants.kMaxSpeedMetersPerSecond = DriveConstants.kLaunchSpeed;
+  
+
   double iniLaunchVel = ProjectileTrajectory.calcInitialVelocity(ProjectileTrajectory.avgLaunchVelocity());
    
   double launchAngle = ProjectileTrajectory.calcLaunchAngle(iniLaunchVel, distanceToTarget, 0.395, 1.524); //DriveConstants.initialHeight
@@ -81,11 +92,13 @@ public class AutoLaunch extends SubsystemBase {
 
   rotError = targetYaw.getDegrees();
 
-
+ 
   if (rotError > DriveConstants.rotError2) {
     rotError = DriveConstants.rotError2;
   } 
 
+
+  //new TurnToAngle(rotError, m_robotDrive);
      
 
 
@@ -96,7 +109,7 @@ public class AutoLaunch extends SubsystemBase {
   SmartDashboard.putNumber("Cal Launch Angle", launchAngle);
   SmartDashboard.putNumber("TargetYaw", targetYaw.getDegrees());
   SmartDashboard.putNumber("RotCmmd", Launcher.rotCmmd);
-  SmartDashboard.putNumber("rotError", rotError);
+  //SmartDashboard.putNumber("rotError", rotError);
   SmartDashboard.putNumber("Distance To Target", distanceToTarget);
  
 
@@ -104,10 +117,13 @@ public class AutoLaunch extends SubsystemBase {
   
   //SmartDashboard.putNumber("Distance To Target", distanceToTarget);
 
+    //isFinished = TurnToAngle.m_pidController.atGoal();
+
+    //if((actLaunchAng < (launchAngle + DriveConstants.launchAngError)) && (actLaunchAng > (launchAngle - DriveConstants.launchAngError)) && (isFinished)){
     if((actLaunchAng < (launchAngle + DriveConstants.launchAngError)) && (actLaunchAng > (launchAngle - DriveConstants.launchAngError)) && (rotError < (DriveConstants.maxRotError)) && (rotError > -(DriveConstants.maxRotError))){
 
       LiveBottom.LiveBottomIn();  // Doesn't stop until B Button isn't pressed
-      
+      //Intake.intakeMidPos();
 
     }
 
@@ -117,7 +133,74 @@ public class AutoLaunch extends SubsystemBase {
   };
 //}
 
+ 
+public void LaunchAuto(Pose2d tarGoal){
+
+ // return Commands.startEnd(() -> {
+
+  var currentPos = DriveSubsystem.getPose2();
+  var currentYaw = DriveSubsystem.canandgyro.getYaw();
+  var currentRot =  DriveSubsystem.canandgyro.getRotation2d(); 
+  double kP = 0.07615; //P gain must be tuned
+  double rotError;
   
+ 
+
+  Launcher.m_launcherClosedLoopController12.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
+  Launcher.m_launcherClosedLoopController13.setSetpoint(DriveConstants.launcherOutSpeed, SparkMax.ControlType.kVelocity);
+
+
+  PhotonPipelineResult result1 = Vision.Cam_1.getLatestResult();
+  PhotonPipelineResult result2 = Vision.Cam_2.getLatestResult();
+
+  if(result1.hasTargets() || result2.hasTargets()){
+
+  
+ 
+  double distanceToTarget = PhotonUtils.getDistanceToPose(currentPos, tarGoal);
+  Rotation2d targetYaw = PhotonUtils.getYawToPose(currentPos,tarGoal);
+
+  double iniLaunchVel = ProjectileTrajectory.calcInitialVelocity(ProjectileTrajectory.avgLaunchVelocity());
+   
+  double launchAngle = ProjectileTrajectory.calcLaunchAngle(iniLaunchVel, distanceToTarget, 0.395, 1.524); //DriveConstants.initialHeight
+    
+  
+  Launcher.m_targetClosedLoopController.setSetpoint(launchAngle, SparkMax.ControlType.kPosition);
+    
+  double actLaunchAng = Launcher.targetPosition();
+
+
+  SmartDashboard.putNumber("Initial Launch Velocity", iniLaunchVel);
+  SmartDashboard.putNumber("Launch Ang Encoder", actLaunchAng);
+  SmartDashboard.putNumber("Cal Launch Angle", launchAngle);
+  SmartDashboard.putNumber("TargetYaw", targetYaw.getDegrees());
+  SmartDashboard.putNumber("RotCmmd", Launcher.rotCmmd);
+  //SmartDashboard.putNumber("rotError", rotError);
+  SmartDashboard.putNumber("Distance To Target", distanceToTarget);
+ 
+
+  
+  
+  //SmartDashboard.putNumber("Distance To Target", distanceToTarget);
+
+    if((actLaunchAng < (launchAngle + DriveConstants.launchAngError)) && (actLaunchAng > (launchAngle - DriveConstants.launchAngError)) ){
+
+      LiveBottom.LiveBottomIn();  // Doesn't stop until B Button isn't pressed
+      //Intake.intakeMidPos();
+
+    }
+
+
+  }
+
+  };
+
+
+
+
+
+
+
 public void StopLaunch(){
 
   //return Commands.run(() -> {
@@ -126,11 +209,15 @@ public void StopLaunch(){
 
   Launcher.rotOverRide = false;
   LiveBottom.LiveBottomStop();
-  Launcher.LauncherStop();       
+  Launcher.LauncherDefault();       
   Launcher.rotCmmd = 0 ;
+  DriveConstants.kMaxSpeedMetersPerSecond = 6;
+
   
  }//)
   //;}
+
+
 
 
 

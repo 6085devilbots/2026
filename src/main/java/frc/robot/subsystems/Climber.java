@@ -53,7 +53,7 @@ public Climber(){
             
                     // - - - - - Intake Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
             
-                     m_climberSpark = new SparkMax(2, MotorType.kBrushless);
+                     m_climberSpark = new SparkMax(17, MotorType.kBrushless);
                      m_climberEncoder = m_climberSpark.getEncoder();
                      m_climberClosedLoopController = m_climberSpark.getClosedLoopController();
                      m_climberSpark.configure(Configs.ClimberSetup.climberConfig, ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
@@ -69,9 +69,9 @@ public Climber(){
             }
         
     
-            public static void climbDownPos(){
+            public static void climbUpPos(){
             
-                m_climberClosedLoopController.setSetpoint(DriveConstants.climbDown_Pos, SparkMax.ControlType.kPosition);
+                m_climberClosedLoopController.setSetpoint(DriveConstants.climbUp_Pos, SparkMax.ControlType.kPosition);
     
             }
 
